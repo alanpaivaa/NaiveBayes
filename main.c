@@ -26,17 +26,17 @@
 // Current dataset
 const int totalLines = PIMA_LINES;
 const int lines = (int) ((totalLines * TRAINING_FACTOR) + 1);
-const int trainingLines = totalLines - lines;
+const int testLines = totalLines - lines;
 const int rows = PIMA_COLUMNS;
 const char *path = PIMA_PATH;
 const int classes = PIMA_CLASSES;
 
 
 float trainingSet[lines][rows];
-float testSet[trainingLines][rows];
+float testSet[testLines][rows];
 float means[classes][rows-1];
 float stdevs[classes][rows-1];
-float inputVector[rows -1] = {6, 148, 72, 35, 0, 33.6, 0.627, 50};
+//float inputVector[rows -1] = {9,171,110,24,240,45.4,0.721,54};
 
 //float dataset[PIMA_LINES][PIMA_COLUMNS];
 //float means[PIMA_CLASSES][PIMA_COLUMNS-1];
@@ -58,7 +58,7 @@ void printTrainingSet() {
 
 void printTestset() {
     int i, j;
-    for (i = 0; i < trainingLines; i++) {
+    for (i = 0; i < testLines; i++) {
         for (j = 0; j < rows; j++) {
             printf("%f", testSet[i][j]);
             if(j < rows - 1) {
@@ -207,7 +207,7 @@ float calculateProbability(float x, float mean, float stdev)
  * @param int classNumber - The class to be considered
  * @return the cumulative probability of that class
 */
-float calculateClassProbability(int classNumber)
+float calculateClassProbability(int classNumber, float *inputVector)
 {
     int i;
     float classProbability = 1;
@@ -227,7 +227,7 @@ float calculateClassProbability(int classNumber)
  * and returns the highest one.
  * @return the predicted class to which the input vector belongs.
  * */
-int predict() {
+int predict(float *inputVector) {
 
     int i;
     float classProb;
@@ -235,7 +235,7 @@ int predict() {
     int bestLabel = -1;
 
     for(i = 0; i < classes; i++) {
-        classProb = calculateClassProbability(i);
+        classProb = calculateClassProbability(i, inputVector);
         if(classProb > bestProb) {
             bestProb = classProb;
             bestLabel = i;
@@ -246,18 +246,27 @@ int predict() {
 
 }
 
+float getAccuracy() {
+
+    int i;
+    int correct = 0;
+    int prediction;
+
+    for(i = 0; i < testLines; i++) {
+        prediction = predict(testSet[i]);
+        if(prediction == (int) testSet[i][rows - 1]) {
+            correct++;
+        }
+    }
+    return (((float) correct) / testLines) * 100;
+
+}
+
 int main(int argc, char *argv[]) {
 
-//    printf("%d\n", lines * rows);
-//    printf("%d\n", trainingLines);
     loadCsv();
-    printTrainingSet();
-//    printTestset();
-//    calculateSummaries();
-//    printSummaries();
-//    printf("%d\n", predict());
-//    printf("%d\n", lines);
-//    printf("%d\n", trainingLines);
+    calculateSummaries();
+    printf("%f%%\n", getAccuracy());
 
     return 0;
 }
