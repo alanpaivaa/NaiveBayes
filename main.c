@@ -20,7 +20,6 @@ const int rows = PIMA_COLUMNS;
 const char *path = PIMA_PATH;
 const int classes = PIMA_CLASSES;
 
-
 float dataset[lines][rows];
 float means[classes][rows-1];
 float stdevs[classes][rows-1];
@@ -98,7 +97,7 @@ float calculateStdev(int classNumber, int columnNumber, float mean) {
         }
     }
 
-    return sqrt(variance/count);
+    return sqrt(variance/(count - 1));
 
 }
 
@@ -116,29 +115,6 @@ void calculateSummaries()
     }
 }
 
-void printMeans()
-{
-    int i, j ;
-    for(i = 0; i<classes;i++ )
-    {
-        for(j = 0; j<rows-1;j++)
-        {
-            printf("%f\n",means[i][j] );
-        }
-    }
-}
-
-void printStdevs() {
-
-    int i, j;
-    for(i = 0; i < classes; i++) {
-        for(j = 0; j < rows - 1; j++) {
-            printf("%f\n", stdevs[i][j]);
-        }
-    }
-
-}
-
 void printSummaries() {
 
     int i, j;
@@ -154,13 +130,9 @@ void printSummaries() {
 
 int main(int argc, char *argv[]) {
 
-    // Configurações de dataset;
     loadCsv();
     calculateSummaries();
-    //printDataset();
-//    printMeans();
-//    printStdevs();
-
     printSummaries();
+
     return 0;
 }
