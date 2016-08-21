@@ -78,8 +78,8 @@ void loadCsv() {
 
 /*
 * Calculates the mean/avarage of a column of attributes considering they belong to a certain class
-* @param int classNumber The number of the class to be cosidered
-* @param int columnNumber The column of attributes about which the mean will be calculated
+* @param int classNumber - The number of the class to be cosidered
+* @param int columnNumber - The column of attributes about which the mean will be calculated
 * @return Returns a float with the avarage of the values of the column considering the class number
 */
 float calculateMean(int classNumber, int columnNumber)
@@ -180,7 +180,7 @@ float calculateProbability(float x, float mean, float stdev)
 
 /*
 * Calculates the total probability of a certain class based on single probabilities yielded by each feature
-* @param int classNumber The class to be considered
+* @param int classNumber - The class to be considered
 * @return the cumulative probability of that class
 */
 float calculateClassProbability(int classNumber)
