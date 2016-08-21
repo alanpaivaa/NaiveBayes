@@ -13,9 +13,12 @@
 
 #define COMMA_ASCII 44
 #define LINE_FEED_ASCII 10
-#define TRAINING_FACTOR 0.7
+#define TRAINING_RATIO 0.7
 
-// Dataset Pima
+
+/**
+ * Pima dataset
+ * */
 #define PIMA_PATH "datasets/pima.csv"
 #define PIMA_LINES 768
 #define PIMA_COLUMNS 9
@@ -23,29 +26,40 @@
 #define PI  3.141592653589793
 
 
-// Current dataset
+/**
+ * Variables which define the behavior of the program.
+ * */
 const int totalLines = PIMA_LINES;
-const int lines = (int) ((totalLines * TRAINING_FACTOR) + 1);
-const int testLines = totalLines - lines;
+const int trainingLines = (int) ((totalLines * TRAINING_RATIO) + 1);
+const int testLines = totalLines - trainingLines;
 const int rows = PIMA_COLUMNS;
 const char *path = PIMA_PATH;
 const int classes = PIMA_CLASSES;
 
 
-float trainingSet[lines][rows];
+/**
+ * trainingSet - Matrix that contains the training data, that will be used to make predictions
+ * testSet - Holds the data that will be tested after the training
+ * means - Holds all the means values used on the training
+ * stdevs - Holds all the standard deviation value used on the training
+ * */
+float trainingSet[trainingLines][rows];
 float testSet[testLines][rows];
 float means[classes][rows-1];
 float stdevs[classes][rows-1];
-//float inputVector[rows -1] = {9,171,110,24,240,45.4,0.721,54};
+
 
 //float dataset[PIMA_LINES][PIMA_COLUMNS];
 //float means[PIMA_CLASSES][PIMA_COLUMNS-1];
 //float stdevs[PIMA_CLASSES][PIMA_COLUMNS-1];
-//float inputVector[PIMA_COLUMNS -1] = {6, 148, 72, 35, 0, 33.6, 0.627, 50, -1};
 
+
+/**
+ * Prints to the console the training dataset.
+ * */
 void printTrainingSet() {
     int i, j;
-    for (i = 0; i < lines; i++) {
+    for (i = 0; i < trainingLines; i++) {
         for (j = 0; j < rows; j++) {
             printf("%f", trainingSet[i][j]);
             if(j < rows - 1) {
@@ -56,6 +70,10 @@ void printTrainingSet() {
     }
 }
 
+
+/**
+ * Prints to the console the test dataset.
+ * */
 void printTestset() {
     int i, j;
     for (i = 0; i < testLines; i++) {
@@ -69,26 +87,33 @@ void printTestset() {
     }
 }
 
+
+/**
+ * Loads the values from a CSV file into the training and data sets according to the
+ * training ratio.
+ * */
 void loadCsv() {
 
-    FILE *file = fopen(path, "r");
+    int c;
+    char buffer[10]; // Holds the current character in the file
+    char bc = 0; // Counter for the buffer, for appending new characters each time
+    int dc = 0; // Counts the number of characters found, for choosing the proper set
+    FILE *file = fopen(path, "r"); // Opening the file
 
+    // :(
     if(file == NULL) {
         printf("Could not open file\n");
         return;
     }
 
-    int c;
-    char buffer[10];
-    char bc = 0;
-    int dc = 0;
+    // While there's file to read
     while((c = fgetc(file)) != EOF) {
-        if(c == COMMA_ASCII || c == LINE_FEED_ASCII) {
+        if(c == COMMA_ASCII || c == LINE_FEED_ASCII) { // A new value is ready to go
             buffer[bc] = '\0';
-            if(dc < (lines * rows)) {
+            if(dc < (trainingLines * rows)) { // If the data still fits on the training set
                 *(&(trainingSet[0][0]) + dc) = atof(buffer);
-            } else {
-                *(&(testSet[0][0]) + (dc - (lines * rows))) = atof(buffer);
+            } else { // Otherwise, it fits on the test set
+                *(&(testSet[0][0]) + (dc - (trainingLines * rows))) = atof(buffer);
             }
             dc++;
             bc = 0;
@@ -97,14 +122,16 @@ void loadCsv() {
         }
     }
 
+    // Close the file
     fclose(file);
 }
 
-/*
-* Calculates the mean/avarage of a column of attributes considering they belong to a certain class
-* @param int classNumber - The number of the class to be considered
-* @param int columnNumber - The column of attributes about which the mean will be calculated
-* @return Returns a float with the average of the values of the column considering the class number
+
+/**
+ * Calculates the mean/avarage of a column of attributes considering they belong to a certain class
+ * @param int classNumber - The number of the class to be considered
+ * @param int columnNumber - The column of attributes about which the mean will be calculated
+ * @return Returns a float with the average of the values of the column considering the class number
 */
 float calculateMean(int classNumber, int columnNumber)
 {
@@ -117,7 +144,7 @@ float calculateMean(int classNumber, int columnNumber)
     float values = 0;
 
     //Calculate the mean only for the training data, the first 70% values of the dataset
-    for(i = 0; i < lines; i++)
+    for(i = 0; i < trainingLines; i++)
     {
         //if the data is from the correct class, then add it to the mean calculation
         if(trainingSet[i][rows-1]==classNumber)
@@ -132,22 +159,38 @@ float calculateMean(int classNumber, int columnNumber)
 
 }
 
+
+/**
+ * Calculates the standar deviation of a column that belongs to a class.
+ * @param classNumber - The number of the class to make the calculation.
+ * @param columnNumber - The column that indicates which attribute will be considered.
+ * @param mean - The mean for the same class and column numbers above.
+ * */
 float calculateStdev(int classNumber, int columnNumber, float mean) {
 
     int i;
+
+    // The variance for the given classNumber and columnNumber
     float variance = 0;
+
+    // Counter for the number of elements to be able to derive the standard deviation
     float count = 0;
 
-    for(i = 0; i < lines; i++) {
+    // Iterating over the training set
+    for(i = 0; i < trainingLines; i++) {
+
+        // Checks if the current loop is at the chosen class
         if(trainingSet[i][rows - 1] == classNumber) {
             variance += pow(trainingSet[i][columnNumber] - mean, 2);
             count += 1;
         }
     }
 
+    // Deriving the standard deviation from variance and count
     return sqrt(variance/(count - 1));
 
 }
+
 
 /**
  * Calculates the summaries of the data and saves them to the correct arrays
@@ -156,7 +199,6 @@ float calculateStdev(int classNumber, int columnNumber, float mean) {
  * Two subarrays are used to hold the summaries, their sizes are NUMBER_OF_CLASSES*NUMBER_OF_FEATURES
  * Therefore the first line of the arrays contain the summaries for the first class and so on and so forth
 */
-
 void calculateSummaries()
 {
     int i,j;
@@ -171,6 +213,10 @@ void calculateSummaries()
     }
 }
 
+
+/**
+ * Prints the summaries to the console
+ * */
 void printSummaries() {
 
     int i, j;
@@ -184,6 +230,7 @@ void printSummaries() {
 
 }
 
+
 /**
  * Calculates the probability of a given number belonging to a distribution based on the gaussian:
  * p = 1/(sqrt(2*PI*stdev)) * e^-(((x- mean)^2)/(2*(stdev^2)))
@@ -193,8 +240,7 @@ void printSummaries() {
  * @param float mean - the mean value of the column and class to which x belongs to
  * @param float stdev - the standard deviation of the column and class to which x belongs to
  * @return return the likelihood (in probability domain) of x belonging to the distribution represented by mean and stdev
-**/
-
+*/
 float calculateProbability(float x, float mean, float stdev)
 {
     float exponent = exp(-(pow(x-mean,2)/(2*pow(stdev,2))));
@@ -222,6 +268,7 @@ float calculateClassProbability(int classNumber, float *inputVector)
 
 }
 
+
 /**
  * Predicts to which class the input vector belongs. Basically, runs over the probabilities for each class
  * and returns the highest one.
@@ -246,6 +293,10 @@ int predict(float *inputVector) {
 
 }
 
+/**
+ * Makes predicions based on the test set and then calculate the percentage of hits
+ * @return The percentage of right predictions on the test set.
+ * */
 float getAccuracy() {
 
     int i;
@@ -261,6 +312,7 @@ float getAccuracy() {
     return (((float) correct) / testLines) * 100;
 
 }
+
 
 int main(int argc, char *argv[]) {
 
