@@ -78,9 +78,9 @@ void loadCsv() {
 
 /*
 * Calculates the mean/avarage of a column of attributes considering they belong to a certain class
-* @param int classNumber - The number of the class to be cosidered
+* @param int classNumber - The number of the class to be considered
 * @param int columnNumber - The column of attributes about which the mean will be calculated
-* @return Returns a float with the avarage of the values of the column considering the class number
+* @return Returns a float with the average of the values of the column considering the class number
 */
 float calculateMean(int classNumber, int columnNumber)
 {
@@ -127,8 +127,8 @@ float calculateStdev(int classNumber, int columnNumber, float mean) {
 
 /*
 * Calculates the summaries of the data and saves them to the correct arrays
-* The second part fo the Naive Bayes algorithm is to sumarize the dataset.
-* The summaries are the means and standad deviations of the data separated by class
+* The second part fo the Naive Bayes algorithm is to summarize the dataset.
+* The summaries are the means and standard deviations of the data separated by class
 * Two subarrays are used to hold the summaries, their sizes are NUMBER_OF_CLASSES*NUMBER_OF_FEATURES
 * Therefore the first line of the arrays contain the summaries for the first class and so on and so forth
 */
@@ -160,15 +160,15 @@ void printSummaries() {
 
 }
 
-/*
-* Calculates the probabilite of a given number belonging to a distribution based on the gaussian:
-* p = 1/(sqrt(2*PI*stdev)) * e^-(((x- mean)^2)/(2*(stdev^2)))
-* Where stdev is the sandard deviation of the column and class to which x belongs to
-* Where mean is the mean of the column and class to which x belongs to
-* @param float x - the input value to be evalueated by the formula
-* @param float mean - the mean value of the column and class to which x belongs to
-* @param float stdev - the standard deviation of the column and class to which x belongs to
-* @return return the likelehood (in probability domain) of x belonging to the distribution represented by mean and stdev
+/**
+ * Calculates the probability of a given number belonging to a distribution based on the gaussian:
+ * p = 1/(sqrt(2*PI*stdev)) * e^-(((x- mean)^2)/(2*(stdev^2)))
+ * Where stdev is the standard deviation of the column and class to which x belongs to
+ * Where mean is the mean of the column and class to which x belongs to
+ * @param float x - the input value to be evaluated by the formula
+ * @param float mean - the mean value of the column and class to which x belongs to
+ * @param float stdev - the standard deviation of the column and class to which x belongs to
+ * @return return the likelihood (in probability domain) of x belonging to the distribution represented by mean and stdev
 **/
 
 float calculateProbability(float x, float mean, float stdev)
@@ -178,10 +178,10 @@ float calculateProbability(float x, float mean, float stdev)
 }
 
 
-/*
-* Calculates the total probability of a certain class based on single probabilities yielded by each feature
-* @param int classNumber - The class to be considered
-* @return the cumulative probability of that class
+/**
+ * Calculates the total probability of a certain class based on single probabilities yielded by each feature
+ * @param int classNumber - The class to be considered
+ * @return the cumulative probability of that class
 */
 float calculateClassProbability(int classNumber)
 {
@@ -198,11 +198,35 @@ float calculateClassProbability(int classNumber)
 
 }
 
+/**
+ * Predicts to which class the input vector belongs. Basically, runs over the probabilities for each class
+ * and returns the highest one.
+ * @return the predicted class to which the input vector belongs.
+ * */
+int predict() {
+
+    int i;
+    float classProb;
+    float bestProb = -1;
+    int bestLabel = -1;
+
+    for(i = 0; i < classes; i++) {
+        classProb = calculateClassProbability(i);
+        if(classProb > bestProb) {
+            bestProb = classProb;
+            bestLabel = i;
+        }
+    }
+
+    return bestLabel;
+
+}
+
 int main(int argc, char *argv[]) {
 
     loadCsv();
     calculateSummaries();
-    printSummaries();
+//    printSummaries();
 
     return 0;
 }
