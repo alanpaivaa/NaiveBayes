@@ -4,30 +4,26 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-#define FILE_PATH "datasets/pima.csv"
 #define COMMA_ASCII 44
 #define LINE_FEED_ASCII 10
 
-typedef struct {
-    int lines;
-    int rows;
-    float *vector;
-} Dataset;
+// Dataset Pima
+#define PIMA_PATH "datasets/pima.csv"
+#define PIMA_LINES 768
+#define PIMA_ROWS 9
 
-Dataset* buildDataset(int lines, int rows) {
-    Dataset *dataset = (Dataset *) malloc(sizeof(dataset));
-    dataset->lines = lines;
-    dataset->rows = rows;
-    dataset->vector = (float *) malloc(dataset->lines * dataset->rows * sizeof(float));
-    return dataset;
-}
+// Dataset corrente
+const  int lines = PIMA_LINES;
+const int rows = PIMA_ROWS;
+char *path = PIMA_PATH;
+float dataset[lines][rows];
 
-void printDataset(Dataset *dataset) {
+void printDataset() {
     int i, j;
-    for (i = 0; i < dataset->lines; i++) {
-        for (j = 0; j < dataset->rows; j++) {
-            printf("%f", *(dataset->vector + ((i * dataset->rows) + j)));
-            if(j < dataset->rows - 1) {
+    for (i = 0; i < lines; i++) {
+        for (j = 0; j < rows; j++) {
+            printf("%f", dataset[i][j]);
+            if(j < rows - 1) {
                 printf(", ");
             }
         }
@@ -35,9 +31,9 @@ void printDataset(Dataset *dataset) {
     }
 }
 
-void loadCsvInto(Dataset *dataset) {
+void loadCsv() {
 
-    FILE *file = fopen(FILE_PATH, "r");
+    FILE *file = fopen(path, "r");
 
     if(file == NULL) {
         printf("Could not open file\n");
@@ -51,7 +47,7 @@ void loadCsvInto(Dataset *dataset) {
     while((c = fgetc(file)) != EOF) {
         if(c == COMMA_ASCII || c == LINE_FEED_ASCII) {
             buffer[bc] = '\0';
-            *(dataset->vector + dc) = atof(buffer);
+            *(&(dataset[0][0]) + dc) = atof(buffer);
             dc++;
             bc = 0;
         } else {
@@ -64,9 +60,9 @@ void loadCsvInto(Dataset *dataset) {
 
 int main(int argc, char *argv[]) {
 
-    Dataset *dataset = buildDataset(768, 9);
-    loadCsvInto(dataset);
-    printDataset(dataset);
+    // Configurações de dataset;
+    loadCsv();
+    printDataset();
 
     return 0;
 }
