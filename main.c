@@ -1,16 +1,19 @@
-/*This is a c implementation of the Machine Learning algorithm called Naive Bayes Gaussian. 
-* It's been adapted from the python version in: http://machinelearningmastery.com/naive-bayes-classifier-scratch-python/ 
-* It was created by Alan Jeferson and Levi Moreira.
-* To run the program please place the desired dataset in the datasets folder and run the program :
-*              ./naive PATH_TO_DATATSET NUMBER_OF_SAMPLES NUMBER_OF_FEATURES+1 NUMBER_OF_CLASSES
-* This program should only be used with numerical datasets of integer/float numbers
+/**
+ * This is a c implementation of the Machine Learning algorithm called Naive Bayes Gaussian.
+ * It's been adapted from the python version in: http://machinelearningmastery.com/naive-bayes-classifier-scratch-python/
+ * It was created by Alan Jeferson and Levi Moreira.
+ * To run the program please place the desired dataset in the datasets folder and run the program :
+ * ./naive PATH_TO_DATATSET NUMBER_OF_SAMPLES NUMBER_OF_FEATURES+1 NUMBER_OF_CLASSES
+ * This program should only be used with numerical datasets of integer/float numbers
 */
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
 
 #define COMMA_ASCII 44
 #define LINE_FEED_ASCII 10
+#define TRAINING_FACTOR 0.7
 
 // Dataset Pima
 #define PIMA_PATH "datasets/pima.csv"
@@ -21,26 +24,43 @@
 
 
 // Current dataset
-const  int lines = PIMA_LINES;
+const int totalLines = PIMA_LINES;
+const int lines = (int) ((totalLines * TRAINING_FACTOR) + 1);
+const int trainingLines = totalLines - lines;
 const int rows = PIMA_COLUMNS;
 const char *path = PIMA_PATH;
 const int classes = PIMA_CLASSES;
 
-/*float dataset[lines][rows];
+
+float trainingSet[lines][rows];
+float testSet[trainingLines][rows];
 float means[classes][rows-1];
 float stdevs[classes][rows-1];
-float inputVector[rows -1];*/
+float inputVector[rows -1] = {6, 148, 72, 35, 0, 33.6, 0.627, 50};
 
-float dataset[PIMA_LINES][PIMA_COLUMNS];
-float means[PIMA_CLASSES][PIMA_COLUMNS-1];
-float stdevs[PIMA_CLASSES][PIMA_COLUMNS-1];
-float inputVector[PIMA_COLUMNS -1];
+//float dataset[PIMA_LINES][PIMA_COLUMNS];
+//float means[PIMA_CLASSES][PIMA_COLUMNS-1];
+//float stdevs[PIMA_CLASSES][PIMA_COLUMNS-1];
+//float inputVector[PIMA_COLUMNS -1] = {6, 148, 72, 35, 0, 33.6, 0.627, 50, -1};
 
-void printDataset() {
+void printTrainingSet() {
     int i, j;
     for (i = 0; i < lines; i++) {
         for (j = 0; j < rows; j++) {
-            printf("%f", dataset[i][j]);
+            printf("%f", trainingSet[i][j]);
+            if(j < rows - 1) {
+                printf(", ");
+            }
+        }
+        printf("\n");
+    }
+}
+
+void printTestset() {
+    int i, j;
+    for (i = 0; i < trainingLines; i++) {
+        for (j = 0; j < rows; j++) {
+            printf("%f", testSet[i][j]);
             if(j < rows - 1) {
                 printf(", ");
             }
@@ -65,7 +85,11 @@ void loadCsv() {
     while((c = fgetc(file)) != EOF) {
         if(c == COMMA_ASCII || c == LINE_FEED_ASCII) {
             buffer[bc] = '\0';
-            *(&(dataset[0][0]) + dc) = atof(buffer);
+            if(dc < (lines * rows)) {
+                *(&(trainingSet[0][0]) + dc) = atof(buffer);
+            } else {
+                *(&(testSet[0][0]) + (dc - (lines * rows))) = atof(buffer);
+            }
             dc++;
             bc = 0;
         } else {
@@ -93,12 +117,12 @@ float calculateMean(int classNumber, int columnNumber)
     float values = 0;
 
     //Calculate the mean only for the training data, the first 70% values of the dataset
-    for(i = 0; i<(int)(lines*0.7)+1; i++)
+    for(i = 0; i < lines; i++)
     {
         //if the data is from the correct class, then add it to the mean calculation
-        if(dataset[i][rows-1]==classNumber)
+        if(trainingSet[i][rows-1]==classNumber)
         {
-            values+=dataset[i][columnNumber];
+            values+=trainingSet[i][columnNumber];
             total++;
         }
 
@@ -114,9 +138,9 @@ float calculateStdev(int classNumber, int columnNumber, float mean) {
     float variance = 0;
     float count = 0;
 
-    for(i = 0; i < (int) (lines*0.7) + 1; i++) {
-        if(dataset[i][rows - 1] == classNumber) {
-            variance += pow(dataset[i][columnNumber] - mean, 2);
+    for(i = 0; i < lines; i++) {
+        if(trainingSet[i][rows - 1] == classNumber) {
+            variance += pow(trainingSet[i][columnNumber] - mean, 2);
             count += 1;
         }
     }
@@ -125,12 +149,12 @@ float calculateStdev(int classNumber, int columnNumber, float mean) {
 
 }
 
-/*
-* Calculates the summaries of the data and saves them to the correct arrays
-* The second part fo the Naive Bayes algorithm is to summarize the dataset.
-* The summaries are the means and standard deviations of the data separated by class
-* Two subarrays are used to hold the summaries, their sizes are NUMBER_OF_CLASSES*NUMBER_OF_FEATURES
-* Therefore the first line of the arrays contain the summaries for the first class and so on and so forth
+/**
+ * Calculates the summaries of the data and saves them to the correct arrays
+ * The second part fo the Naive Bayes algorithm is to summarize the dataset.
+ * The summaries are the means and standard deviations of the data separated by class
+ * Two subarrays are used to hold the summaries, their sizes are NUMBER_OF_CLASSES*NUMBER_OF_FEATURES
+ * Therefore the first line of the arrays contain the summaries for the first class and so on and so forth
 */
 
 void calculateSummaries()
@@ -224,9 +248,16 @@ int predict() {
 
 int main(int argc, char *argv[]) {
 
+//    printf("%d\n", lines * rows);
+//    printf("%d\n", trainingLines);
     loadCsv();
-    calculateSummaries();
+    printTrainingSet();
+//    printTestset();
+//    calculateSummaries();
 //    printSummaries();
+//    printf("%d\n", predict());
+//    printf("%d\n", lines);
+//    printf("%d\n", trainingLines);
 
     return 0;
 }
