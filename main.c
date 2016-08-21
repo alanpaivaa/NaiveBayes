@@ -3,6 +3,7 @@
 //
 #include<stdio.h>
 #include<stdlib.h>
+#include<math.h>
 
 #define COMMA_ASCII 44
 #define LINE_FEED_ASCII 10
@@ -11,15 +12,18 @@
 #define PIMA_PATH "datasets/pima.csv"
 #define PIMA_LINES 768
 #define PIMA_COLUMNS 9
-#define PIMA_CLASS 2
+#define PIMA_CLASSES 2
 
 // Dataset corrente
 const  int lines = PIMA_LINES;
 const int rows = PIMA_COLUMNS;
-char *path = PIMA_PATH;
-float dataset[PIMA_LINES][PIMA_COLUMNS];
-float means[PIMA_CLASS][PIMA_COLUMNS-1];
-float stdevs[PIMA_CLASS][PIMA_COLUMNS-1];
+const char *path = PIMA_PATH;
+const int classes = PIMA_CLASSES;
+
+
+float dataset[lines][rows];
+float means[classes][rows-1];
+float stdevs[classes][rows-1];
 
 void printDataset() {
     int i, j;
@@ -66,10 +70,10 @@ float calculateMean(int classNumber, int columnNumber)
     int i;
     int total = 0;
     float values = 0;
-    for(i = 0; i<(int)(PIMA_LINES*0.7)+1; i++)
+    for(i = 0; i<(int)(lines*0.7)+1; i++)
     {
         //iff the data is from the correct class and it's part of the training set add it to the mean calculation
-        if(dataset[i][PIMA_COLUMNS-1]==classNumber)
+        if(dataset[i][rows-1]==classNumber)
         {
             values+=dataset[i][columnNumber];
             total++;
@@ -81,39 +85,82 @@ float calculateMean(int classNumber, int columnNumber)
 
 }
 
+float calculateStdev(int classNumber, int columnNumber, float mean) {
+
+    int i;
+    float variance = 0;
+    float count = 0;
+
+    for(i = 0; i < (int) (lines*0.7) + 1; i++) {
+        if(dataset[i][rows - 1] == classNumber) {
+            variance += pow(dataset[i][columnNumber] - mean, 2);
+            count += 1;
+        }
+    }
+
+    return sqrt(variance/count);
+
+}
+
 void calculateSummaries()
 {
     int i,j;
-    for(j = 0; j<PIMA_CLASS;j++)
+    for(i = 0; i<classes;i++) // Iterando sobre classes
     {
-        for(i = 0; i<PIMA_COLUMNS-1;i++)
+        for(j = 0; j<rows-1;j++) // Iterando sobre atributos
         {
-            means[j][i] = calculateMean(j,i);
-        
+            means[i][j] = calculateMean(i, j);
+            stdevs[i][j] = calculateStdev(i, j, means[i][j]);
         }
-        //stdevs[j] = summaryStdv(j);
+
     }
 }
-
 
 void printMeans()
 {
     int i, j ;
-    for(i = 0; i<PIMA_CLASS;i++ )
+    for(i = 0; i<classes;i++ )
     {
-        for(j = 0; j<PIMA_COLUMNS-1;j++)
+        for(j = 0; j<rows-1;j++)
         {
             printf("%f\n",means[i][j] );
         }
     }
 }
+
+void printStdevs() {
+
+    int i, j;
+    for(i = 0; i < classes; i++) {
+        for(j = 0; j < rows - 1; j++) {
+            printf("%f\n", stdevs[i][j]);
+        }
+    }
+
+}
+
+void printSummaries() {
+
+    int i, j;
+    for (i = 0; i < classes; i++) {
+        printf("Classe %d:\n", i);
+        for (j = 0; j < rows - 1; j++) {
+            printf("(%f, %f)\n", means[i][j], stdevs[i][j]);
+        }
+        printf("\n");
+    }
+
+}
+
 int main(int argc, char *argv[]) {
 
     // Configurações de dataset;
     loadCsv();
     calculateSummaries();
     //printDataset();
-    printMeans();
+//    printMeans();
+//    printStdevs();
 
+    printSummaries();
     return 0;
 }
