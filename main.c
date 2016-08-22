@@ -55,12 +55,12 @@
 /**
  * Variables which define the behavior of the program.
  * */
-const int totalLines = PIMA_LINES;
-const int trainingLines = (int) ((PIMA_LINES * TRAINING_RATIO) + 1);
-const int testLines = PIMA_LINES - (int) ((PIMA_LINES * TRAINING_RATIO) + 1);
-const int columns = PIMA_COLUMNS;
-const char *path = PIMA_PATH;
-const int classes = PIMA_CLASSES;
+ int totalLines = PIMA_LINES;
+ int trainingLines = (int) ((PIMA_LINES * TRAINING_RATIO) + 1);
+ int testLines = PIMA_LINES - (int) ((PIMA_LINES * TRAINING_RATIO) + 1);
+ int columns = PIMA_COLUMNS;
+ char *path = PIMA_PATH;
+ int classes = PIMA_CLASSES;
 
 
 /**
@@ -392,14 +392,20 @@ void showOff(int testLine)
 
 }
 
+/*
+* The call for the program is: 
+* ./main filepath samples feature classes
+*/
 int main(int argc, char *argv[]) {
 
-    srand(time(NULL));
 
+    srand(time(NULL));
     loadCsv();
     calculateSummaries();
-    printf("Split %d rows into train=%d and test=%d rows\n", totalLines, trainingLines, testLines);
-    printf("Accuracy: %f%%\n", getAccuracy());
-    showOff(rand()%testLines);
+
+    printSummaries();
+   // printf("Split %d rows into train=%d and test=%d rows\n", totalLines, trainingLines, testLines);
+   // printf("Accuracy: %f%%\n", getAccuracy());
+   // showOff(rand()%testLines);
     return 0;
 }
