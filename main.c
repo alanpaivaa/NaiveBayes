@@ -56,8 +56,8 @@
  * Variables which define the behavior of the program.
  * */
 const int totalLines = PIMA_LINES;
-const int trainingLines = (int) ((totalLines * TRAINING_RATIO) + 1);
-const int testLines = totalLines - trainingLines;
+const int trainingLines = (int) ((PIMA_LINES * TRAINING_RATIO) + 1);
+const int testLines = PIMA_LINES - (int) ((PIMA_LINES * TRAINING_RATIO) + 1);
 const int columns = PIMA_COLUMNS;
 const char *path = PIMA_PATH;
 const int classes = PIMA_CLASSES;
@@ -69,15 +69,16 @@ const int classes = PIMA_CLASSES;
  * means - Holds all the means values used on the training
  * stdevs - Holds all the standard deviation value used on the training
  * */
-float trainingSet[trainingLines][columns];
+/*float trainingSet[trainingLines][columns];
 float testSet[testLines][columns];
 float means[classes][columns-1];
-float stdevs[classes][columns-1];
+float stdevs[classes][columns-1];*/
 
 
-//float dataset[PIMA_LINES][PIMA_COLUMNS];
-//float means[PIMA_CLASSES][PIMA_COLUMNS-1];
-//float stdevs[PIMA_CLASSES][PIMA_COLUMNS-1];
+float trainingSet[(int) ((PIMA_LINES * TRAINING_RATIO) + 1)][PIMA_COLUMNS];
+float testSet[PIMA_LINES-(int) ((PIMA_LINES * TRAINING_RATIO) + 1)][PIMA_COLUMNS];
+float means[PIMA_CLASSES][PIMA_COLUMNS-1];
+float stdevs[PIMA_CLASSES][PIMA_COLUMNS-1];
 
 
 /**
@@ -110,6 +111,19 @@ void printTestset() {
             }
         }
         printf("\n");
+    }
+}
+
+/**
+* Print specified line in the testset
+*/
+
+void printTestSetLine(int line)
+{
+    int i;
+    for(i = 0; i<columns; i++)
+    {
+        printf("%2.2f, ",testSet[line][i]);
     }
 }
 
@@ -357,13 +371,34 @@ float getAccuracy() {
 
 }
 
+/**
+* Simply takes the first entry of the test dataset and show the prediction for it so the user can see it working
+**/
+float showOff(int testLine)
+{
+    printf("Showing off the prediction skills in the input vector: \n");
+    printTestSetLine(testLine);
+    int prediction = predict(testSet[testLine]);
+    printf("\nPredicted class %d\n",prediction );
+    if(prediction==testSet[testLine][columns-1])
+    {
+        printf("It's a hit :)\n");
+    }else
+    {
+        printf("It's a miss :(\n");
+    }
+
+
+}
 
 int main(int argc, char *argv[]) {
+
+    srand(time(NULL));
 
     loadCsv();
     calculateSummaries();
     printf("Split %d rows into train=%d and test=%d rows\n", totalLines, trainingLines, testLines);
     printf("Accuracy: %f%%\n", getAccuracy());
-
+    showOff(rand()%testLines);
     return 0;
 }
