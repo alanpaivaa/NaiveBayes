@@ -3,11 +3,12 @@ import urllib
 import sys
 import csv
 from sklearn.naive_bayes import GaussianNB
+from sklearn import cross_validation
 
 file = sys.argv[1]
 samples = int(sys.argv[2])
 features = int(sys.argv[3])
-ratio = 0.7
+ratio = 0.9
 limit = int(samples*ratio)+1
 
 # url with dataset
@@ -29,3 +30,7 @@ clf = GaussianNB()
 clf.fit(trainingData,trainingLabes)
 score = clf.score(testData,testLabel)
 print(score*100)
+scores = cross_validation.cross_val_score(clf, dataset[0:samples:,0:features], dataset[0:samples:,features], cv=10)
+print scores
+print scores.mean()
+print scores.std()
