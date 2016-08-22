@@ -372,9 +372,10 @@ float getAccuracy() {
 }
 
 /**
-* Simply takes the first entry of the test dataset and show the prediction for it so the user can see it working
+* Simply takes a certain entry of the test dataset and show the prediction for it so the user can see the algorithm working
+* @param int testLine - A certain line of the test dataset
 **/
-float showOff(int testLine)
+void showOff(int testLine)
 {
     printf("Showing off the prediction skills in the input vector: \n");
     printTestSetLine(testLine);
