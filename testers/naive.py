@@ -15,7 +15,7 @@ def splitDataset(dataset, splitRatio):
 	trainSet = []
 	copy = list(dataset)
 	index  = 0
-	
+
 
 	while len(trainSet) < trainSize:
 		#index = random.randrange(len(copy))
@@ -23,10 +23,10 @@ def splitDataset(dataset, splitRatio):
 		#print element
 		index = index+1
 		trainSet.append(element)
-		#index = index +1
-		#print("Index ",index)
-		#print(len(trainSet))
-	print dataset[trainSize]
+	#index = index +1
+	#print("Index ",index)
+	#print(len(trainSet))
+	# print dataset[trainSize]
 	return [trainSet, copy]
 
 def separateByClass(dataset):
@@ -53,9 +53,11 @@ def summarize(dataset):
 
 def summarizeByClass(dataset):
 	separated = separateByClass(dataset)
+	# print zip(*separated[0])[0]
 	summaries = {}
 	for classValue, instances in separated.iteritems():
 		summaries[classValue] = summarize(instances)
+	# print summaries[0]
 	return summaries
 
 def calculateProbability(x, mean, stdev):
@@ -71,7 +73,7 @@ def calculateClassProbabilities(summaries, inputVector):
 			x = inputVector[i]
 			probabilities[classValue] *= calculateProbability(x, mean, stdev)
 	return probabilities
-			
+
 def predict(summaries, inputVector):
 	probabilities = calculateClassProbabilities(summaries, inputVector)
 	bestLabel, bestProb = None, -1
@@ -93,6 +95,7 @@ def getAccuracy(testSet, predictions):
 	for i in range(len(testSet)):
 		if testSet[i][-1] == predictions[i]:
 			correct += 1
+		# print i, predictions[i], testSet[i][-1], testSet[i]
 	return (correct/float(len(testSet))) * 100.0
 
 def main():

@@ -11,10 +11,13 @@
 #include<stdlib.h>
 #include<math.h>
 
+/**
+ * Useful defines.
+ * */
 #define COMMA_ASCII 44
 #define LINE_FEED_ASCII 10
 #define TRAINING_RATIO 0.7
-
+#define PI 3.141592653589793
 
 /**
  * Pima dataset
@@ -23,7 +26,30 @@
 #define PIMA_LINES 768
 #define PIMA_COLUMNS 9
 #define PIMA_CLASSES 2
-#define PI  3.141592653589793
+
+/**
+ * Column dataset.
+ * */
+#define COLUMN_PATH "datasets/column.csv"
+#define COLUMN_LINES 310
+#define COLUMN_COLUMNS 7
+#define COLUMN_CLASSES 2
+
+/**
+ * Iris dataset.
+ * */
+#define IRIS_PATH "datasets/iris.csv"
+#define IRIS_LINES 150
+#define IRIS_COLUMNS 5
+#define IRIS_CLASSES 3
+
+/**
+ * Wine dataset.
+ * */
+#define WINE_PATH "datasets/wine.csv"
+#define WINE_LINES 178
+#define WINE_COLUMNS 14
+#define WINE_CLASSES 3
 
 
 /**
@@ -32,7 +58,7 @@
 const int totalLines = PIMA_LINES;
 const int trainingLines = (int) ((totalLines * TRAINING_RATIO) + 1);
 const int testLines = totalLines - trainingLines;
-const int rows = PIMA_COLUMNS;
+const int columns = PIMA_COLUMNS;
 const char *path = PIMA_PATH;
 const int classes = PIMA_CLASSES;
 
@@ -43,10 +69,10 @@ const int classes = PIMA_CLASSES;
  * means - Holds all the means values used on the training
  * stdevs - Holds all the standard deviation value used on the training
  * */
-float trainingSet[trainingLines][rows];
-float testSet[testLines][rows];
-float means[classes][rows-1];
-float stdevs[classes][rows-1];
+float trainingSet[trainingLines][columns];
+float testSet[testLines][columns];
+float means[classes][columns-1];
+float stdevs[classes][columns-1];
 
 
 //float dataset[PIMA_LINES][PIMA_COLUMNS];
@@ -60,9 +86,9 @@ float stdevs[classes][rows-1];
 void printTrainingSet() {
     int i, j;
     for (i = 0; i < trainingLines; i++) {
-        for (j = 0; j < rows; j++) {
+        for (j = 0; j < columns; j++) {
             printf("%f", trainingSet[i][j]);
-            if(j < rows - 1) {
+            if(j < columns - 1) {
                 printf(", ");
             }
         }
@@ -77,9 +103,9 @@ void printTrainingSet() {
 void printTestset() {
     int i, j;
     for (i = 0; i < testLines; i++) {
-        for (j = 0; j < rows; j++) {
+        for (j = 0; j < columns; j++) {
             printf("%f", testSet[i][j]);
-            if(j < rows - 1) {
+            if(j < columns - 1) {
                 printf(", ");
             }
         }
@@ -110,16 +136,22 @@ void loadCsv() {
     while((c = fgetc(file)) != EOF) {
         if(c == COMMA_ASCII || c == LINE_FEED_ASCII) { // A new value is ready to go
             buffer[bc] = '\0';
-            if(dc < (trainingLines * rows)) { // If the data still fits on the training set
+            if(dc < (trainingLines * columns)) { // If the data still fits on the training set
                 *(&(trainingSet[0][0]) + dc) = atof(buffer);
             } else { // Otherwise, it fits on the test set
-                *(&(testSet[0][0]) + (dc - (trainingLines * rows))) = atof(buffer);
+                *(&(testSet[0][0]) + (dc - (trainingLines * columns))) = atof(buffer);
             }
             dc++;
             bc = 0;
         } else {
             buffer[bc++] = c;
         }
+    }
+
+    // Making sure that the last character is read
+    if(bc > 0) {
+        buffer[bc] = '\0';
+        *(&(testSet[0][0]) + (dc - (trainingLines * columns))) = atof(buffer);
     }
 
     // Close the file
@@ -147,7 +179,7 @@ float calculateMean(int classNumber, int columnNumber)
     for(i = 0; i < trainingLines; i++)
     {
         //if the data is from the correct class, then add it to the mean calculation
-        if(trainingSet[i][rows-1]==classNumber)
+        if(trainingSet[i][columns-1]==classNumber)
         {
             values+=trainingSet[i][columnNumber];
             total++;
@@ -180,7 +212,7 @@ float calculateStdev(int classNumber, int columnNumber, float mean) {
     for(i = 0; i < trainingLines; i++) {
 
         // Checks if the current loop is at the chosen class
-        if(trainingSet[i][rows - 1] == classNumber) {
+        if(trainingSet[i][columns - 1] == classNumber) {
             variance += pow(trainingSet[i][columnNumber] - mean, 2);
             count += 1;
         }
@@ -204,7 +236,7 @@ void calculateSummaries()
     int i,j;
     for(i = 0; i<classes;i++) // Iterate through classes
     {
-        for(j = 0; j<rows-1;j++) // Iterate through features
+        for(j = 0; j<columns-1;j++) // Iterate through features
         {
             means[i][j] = calculateMean(i, j);
             stdevs[i][j] = calculateStdev(i, j, means[i][j]);
@@ -222,7 +254,7 @@ void printSummaries() {
     int i, j;
     for (i = 0; i < classes; i++) {
         printf("Classe %d:\n", i);
-        for (j = 0; j < rows - 1; j++) {
+        for (j = 0; j < columns - 1; j++) {
             printf("(%f, %f)\n", means[i][j], stdevs[i][j]);
         }
         printf("\n");
@@ -258,7 +290,7 @@ float calculateClassProbability(int classNumber, float *inputVector)
     int i;
     float classProbability = 1;
     //for each feature, calculate the probability and multiply them together
-    for(i = 0; i<rows-1; i++)
+    for(i = 0; i<columns-1; i++)
     {
         //considering the Bayes criterion, the total probability is the product of each single probability
         classProbability*=calculateProbability(inputVector[i], means[classNumber][i], stdevs[classNumber][i] );
@@ -277,13 +309,19 @@ float calculateClassProbability(int classNumber, float *inputVector)
 int predict(float *inputVector) {
 
     int i;
+
+    // Probability of a class in each loop
     float classProb;
+
+    // Holds the highest probability
     float bestProb = -1;
+
+    // Holds the number of class which has the highest probability
     int bestLabel = -1;
 
     for(i = 0; i < classes; i++) {
-        classProb = calculateClassProbability(i, inputVector);
-        if(classProb > bestProb) {
+        classProb = calculateClassProbability(i, inputVector); // Calculating the probability for the current class on the loop
+        if(classProb > bestProb) { // Checking if the new class' probability is higher than the highest known probability
             bestProb = classProb;
             bestLabel = i;
         }
@@ -300,15 +338,21 @@ int predict(float *inputVector) {
 float getAccuracy() {
 
     int i;
+
+    // Number of correct predictions
     int correct = 0;
+
+    // Holds the current prediction on the loop
     int prediction;
 
     for(i = 0; i < testLines; i++) {
-        prediction = predict(testSet[i]);
-        if(prediction == (int) testSet[i][rows - 1]) {
+        prediction = predict(testSet[i]); // Gets the prediction for a given test set line
+        if(prediction == (int) testSet[i][columns - 1]) { // Checks if the prediction hits
             correct++;
         }
     }
+
+    // Returns the percentage of hits
     return (((float) correct) / testLines) * 100;
 
 }
@@ -318,7 +362,8 @@ int main(int argc, char *argv[]) {
 
     loadCsv();
     calculateSummaries();
-    printf("%f%%\n", getAccuracy());
+    printf("Split %d rows into train=%d and test=%d rows\n", totalLines, trainingLines, testLines);
+    printf("Accuracy: %f%%\n", getAccuracy());
 
     return 0;
 }
