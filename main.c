@@ -242,7 +242,7 @@ void printSummaries() {
     for (i = 0; i < CLASSES; i++) {
         printf("Classe %d:\n", i);
         for (j = 0; j < COLUMNS - 1; j++) {
-            printf("(%f, %f)\n", means[i][j], stdevs[i][j]);
+            printf("(%11.6f, %11.6f)\n", means[i][j], stdevs[i][j]);
         }
         printf("\n");
     }
@@ -349,6 +349,7 @@ int main(int argc, char *argv[]) {
 
     loadCsv();
     calculateSummaries();
+    printSummaries();
     printf("Split %d rows into train=%d and test=%d rows\n", LINES, TRAINING_LINES, TEST_LINES);
     printf("Accuracy: %f%%\n", getAccuracy());
 

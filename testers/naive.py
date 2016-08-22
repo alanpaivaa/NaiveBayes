@@ -98,6 +98,13 @@ def getAccuracy(testSet, predictions):
 		# print i, predictions[i], testSet[i][-1], testSet[i]
 	return (correct/float(len(testSet))) * 100.0
 
+def printSummaries(summaries):
+	for a, b in summaries.iteritems():
+		print  "Classe %s:" % a
+		for s in b:
+			print "(%11.6f, %11.6f)" % (s[0], s[1])
+		print "\n"
+
 def main():
 	filename = 'wine.csv'
 	splitRatio = 0.7
@@ -106,9 +113,10 @@ def main():
 	print('Split {0} rows into train={1} and test={2} rows').format(len(dataset), len(trainingSet), len(testSet))
 	# prepare model
 	summaries = summarizeByClass(trainingSet)
+	printSummaries(summaries)
 	# test model
-	predictions = getPredictions(summaries, testSet)
-	accuracy = getAccuracy(testSet, predictions)
-	print('Accuracy: {0}%').format(accuracy)
+	# predictions = getPredictions(summaries, testSet)
+	# accuracy = getAccuracy(testSet, predictions)
+	# print('Accuracy: {0}%').format(accuracy)
 
 main()
