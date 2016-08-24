@@ -24,6 +24,21 @@
 
 
 
+void printMetrics()
+{
+    printf("\n------------------Metrics for the Model------------------\n");
+    int i;
+    for(i = 0; i<CLASSES; i++)
+    {
+        printf("Metrics for Class %d\n", i);
+        printf("Precision %2.2f\n", getPrecision(i));
+        printf("Recall %2.2f\n",getRecall(i) );
+        printf("\n");
+    }
+    
+    printf("\nModel Accuracy for the above split: %f%%\n", getAccuracy());
+}
+
 /*
 * @brief Calculates the k-fold cross Accuracy for the whole dataset. This function is used for test purposes only.
 * @param The size of the fold (normally 10)
@@ -52,7 +67,7 @@ int main(int argc, char *argv[]) {
   
     /* Load up data and fill in the datasets in memory*/
     loadCsv(); 
-    printf("Split %d rows into train=%d and test=%d rows\n", LINES, TRAINING_LINES, TEST_LINES);
+    printf("\nSplit %d rows into train=%d and test=%d rows\n", LINES, TRAINING_LINES, TEST_LINES);
 
     /* Sumarize data*/
     calculateSummaries();
@@ -60,8 +75,8 @@ int main(int argc, char *argv[]) {
     calculateMetrics();
     printConfusionMatrix();
     /* Calculate the model accuracy*/
-    printf("Model Accuracy for the above split: %f%%\n", getAccuracy());
     
+    printMetrics();
     //printf("Cross Accuracy for model: %f%%\n", getCrossAccuracy(10));
 
     return 0;

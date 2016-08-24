@@ -195,13 +195,8 @@ void calculateMetrics() {
     for(i = 0; i < TEST_LINES; i++) {
         prediction = predict(testSet[i]); /*  Gets the prediction for a given test set line */
         confusionMatrix[(int)testSet[i][COLUMNS-1]][prediction]++;
-        //if(prediction == (int) testSet[i][COLUMNS - 1]) { /*  Checks if the prediction hits */
-          //  correct++;
-        //}
-    }
 
-    /*  Returns the percentage of hits */
-    //return (((float) correct) / TEST_LINES) * 100;
+    }
 
 }
 
@@ -216,4 +211,29 @@ float getAccuracy()
     }
 
     return (hits/(float)TEST_LINES)*100;
+}
+
+float getRecall(int class)
+{
+    int i;
+    int sum = 0;
+    for(i = 0; i<CLASSES;i++)
+    {
+        sum+=confusionMatrix[class][i];
+    }
+
+    return (confusionMatrix[class][class]/(float)sum);
+}
+
+float getPrecision(int class)
+{
+    int i;
+    int sum = 0;
+    for(i = 0; i<CLASSES;i++)
+    {
+        sum+=confusionMatrix[i][class];
+    }
+
+    return (confusionMatrix[class][class]/(float)sum);
+
 }

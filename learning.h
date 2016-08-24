@@ -23,5 +23,7 @@ float calculateProbability(float x, float mean, float stdev);
 float calculateClassProbability(int classNumber, float *inputVector);
 int predict(float *inputVector);
 float getAccuracy();
+float getPrecision(int class);
+float getRecall(int class);
 
 #endif /* __UTIL_H */

@@ -152,11 +152,14 @@ void printSummaries() {
 
 void printConfusionMatrix()
 {
+    printf("------------------Confusion Matrix for the Model------------------\n");
     int i, j;
     for(i = 0; i<CLASSES;i++)
     {
+        printf("Class %d ",i);
         for(j = 0; j<CLASSES;j++)
-            printf("%d ",confusionMatrix[i][j] );
+            printf("  %d   ",confusionMatrix[i][j] );
         printf("\n");
     }
 }
+
