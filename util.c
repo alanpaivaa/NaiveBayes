@@ -12,9 +12,29 @@
 /* Includes ------------------------------------------------------------------*/
 #include "util.h"
 #include "main.h"
+#include "learning.h"
+  
+ 
 
-  
-  
+ /**
+* @brief print out the metrics (Recall, Precision and Accuracy for the model)
+* @note Please note that the Recall and Precision are printed by class and the Accuracy is for the whole model
+**/
+void printMetrics()
+{
+    printf("\n------------------Metrics for the Model---------------------------\n");
+    int i;
+    for(i = 0; i<CLASSES; i++)
+    {
+        printf("Metrics for Class %d\n", i);
+        printf("Precision %2.2f\n", getPrecision(i));
+        printf("Recall %2.2f\n",getRecall(i) );
+        printf("\n");
+    }
+
+    printf("\nModel Accuracy for the above split: %f%%\n", getAccuracy());
+}
+
 
 /**
  * @brief Prints to the console the training dataset.

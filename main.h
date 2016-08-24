@@ -32,18 +32,18 @@
 /**
  * Pima dataset
  * */
-//#define PATH "datasets/pima.csv"
-//#define LINES 768
-//#define COLUMNS 9
-//#define CLASSES 2
+#define PATH "datasets/pima.csv"
+#define LINES 768
+#define COLUMNS 9
+#define CLASSES 2
 
 /*
  * Column dataset.
  */
-#define PATH "datasets/column.csv"
-#define LINES 310
-#define COLUMNS 7
-#define CLASSES 2
+//#define PATH "datasets/column.csv"
+//#define LINES 310
+//#define COLUMNS 7
+//#define CLASSES 2
 
 /*
  * Iris dataset.
