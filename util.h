@@ -18,5 +18,6 @@ void printSummaries();
 void loadCsv();
 void printTestset();
 void printTrainingSet() ;
+void printConfusionMatrix();
 
 #endif /* __UTIL_H */

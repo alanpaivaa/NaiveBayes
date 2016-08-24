@@ -82,7 +82,7 @@ float means[CLASSES][COLUMNS - 1];
  **/
 float stdevs[CLASSES][COLUMNS - 1];
 
-
+int confusionMatrix[CLASSES][CLASSES];
 
 
 #endif /* __MAIN_H */

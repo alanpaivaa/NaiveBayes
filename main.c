@@ -57,6 +57,8 @@ int main(int argc, char *argv[]) {
     /* Sumarize data*/
     calculateSummaries();
 
+    calculateMetrics();
+    printConfusionMatrix();
     /* Calculate the model accuracy*/
     printf("Model Accuracy for the above split: %f%%\n", getAccuracy());
     

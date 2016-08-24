@@ -176,9 +176,15 @@ int predict(float *inputVector) {
  * Makes predicions based on the test set and then calculate the percentage of hits
  * @return The percentage of right predictions on the test set.
  * */
-float getAccuracy() {
+void calculateMetrics() {
 
-    int i;
+    int i,j;
+
+    for(i = 0; i<CLASSES; i++)
+    {
+        for(j = 0; j<CLASSES; j++)
+            confusionMatrix[i][j] = 0;
+    }
 
     /*  Number of correct predictions */
     int correct = 0;
@@ -188,12 +194,26 @@ float getAccuracy() {
 
     for(i = 0; i < TEST_LINES; i++) {
         prediction = predict(testSet[i]); /*  Gets the prediction for a given test set line */
-        if(prediction == (int) testSet[i][COLUMNS - 1]) { /*  Checks if the prediction hits */
-            correct++;
-        }
+        confusionMatrix[(int)testSet[i][COLUMNS-1]][prediction]++;
+        //if(prediction == (int) testSet[i][COLUMNS - 1]) { /*  Checks if the prediction hits */
+          //  correct++;
+        //}
     }
 
     /*  Returns the percentage of hits */
-    return (((float) correct) / TEST_LINES) * 100;
+    //return (((float) correct) / TEST_LINES) * 100;
 
+}
+
+
+float getAccuracy()
+{
+    int i;
+    int hits = 0;
+    for(i = 0; i<CLASSES; i++)
+    {
+        hits+=confusionMatrix[i][i];
+    }
+
+    return (hits/(float)TEST_LINES)*100;
 }
