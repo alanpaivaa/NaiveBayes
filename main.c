@@ -10,11 +10,13 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
+#include<time.h>
 
 /**
  * Useful defines.
  * */
 #define COMMA_ASCII 44
+#define RANDOM_SETS 0
 #define LINE_FEED_ASCII 10
 #define TRAINING_RATIO 0.7
 #define PI 3.141592653589793
@@ -107,11 +109,15 @@ void printTestset() {
  * */
 void loadCsv() {
 
-    int c;
+    int c; // Last read character
     char buffer[10]; // Holds the current character in the file
     char bc = 0; // Counter for the buffer, for appending new characters each time
-    int dc = 0; // Counts the number of characters found, for choosing the proper set
     FILE *file = fopen(PATH, "r"); // Opening the file
+
+    int count = COLUMNS; // Tells the position of a character in a line
+    int trainingCount = -1; // Line count for the training set
+    int testCount = -1; // Line count for the test set
+    int selectedSet; // 0 for training, 1 for test;
 
     // :(
     if(file == NULL) {
@@ -119,17 +125,49 @@ void loadCsv() {
         return;
     }
 
+    // Random seed
+    srand(time(NULL));
+
     // While there's file to read
     while((c = fgetc(file)) != EOF) {
+
         if(c == COMMA_ASCII || c == LINE_FEED_ASCII) { // A new value is ready to go
+
             buffer[bc] = '\0';
-            if(dc < (TRAINING_LINES * COLUMNS)) { // If the data still fits on the training set
-                *(&(trainingSet[0][0]) + dc) = atof(buffer);
-            } else { // Otherwise, it fits on the test set
-                *(&(testSet[0][0]) + (dc - (TRAINING_LINES * COLUMNS))) = atof(buffer);
+
+            // New Line
+            if(count == COLUMNS) {
+
+                count = 0;
+
+                // Choosing the proper set
+                if(RANDOM_SETS && (trainingCount + 1) < TRAINING_LINES && (testCount + 1) < TEST_LINES) {
+                    selectedSet = (rand() % 2);
+                } else if((trainingCount + 1) < TRAINING_LINES) { // First training set
+                    selectedSet = 0;
+                } else { // Then test set
+                    selectedSet = 1;
+                }
+
+                // Increment the line count for the sets
+                if(selectedSet) {
+                    testCount++;
+                } else {
+                    trainingCount++;
+                }
+
             }
-            dc++;
+
+            // Test set
+            if(selectedSet) {
+                *(&(testSet[0][0]) + ((testCount * COLUMNS) + count)) = atof(buffer);
+            } else { // Training set
+                *(&(trainingSet[0][0]) + ((trainingCount * COLUMNS) + count)) = atof(buffer);
+            }
+
+            count++;
             bc = 0;
+
         } else {
             buffer[bc++] = c;
         }
@@ -138,7 +176,11 @@ void loadCsv() {
     // Making sure that the last character is read
     if(bc > 0) {
         buffer[bc] = '\0';
-        *(&(testSet[0][0]) + (dc - (TRAINING_LINES * COLUMNS))) = atof(buffer);
+        if(selectedSet) {
+            *(&(testSet[0][0]) + ((testCount * COLUMNS) + count)) = atof(buffer);
+        } else { // Training set
+            *(&(trainingSet[0][0]) + ((trainingCount * COLUMNS) + count)) = atof(buffer);
+        }
     }
 
     // Close the file
@@ -348,8 +390,9 @@ float getAccuracy() {
 int main(int argc, char *argv[]) {
 
     loadCsv();
+//    printTrainingSet();
     calculateSummaries();
-    printSummaries();
+//    printSummaries();
     printf("Split %d rows into train=%d and test=%d rows\n", LINES, TRAINING_LINES, TEST_LINES);
     printf("Accuracy: %f%%\n", getAccuracy());
 

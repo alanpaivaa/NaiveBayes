@@ -16,17 +16,11 @@ def splitDataset(dataset, splitRatio):
 	copy = list(dataset)
 	index  = 0
 
-
 	while len(trainSet) < trainSize:
-		#index = random.randrange(len(copy))
 		element = copy.pop(0)
-		#print element
 		index = index+1
 		trainSet.append(element)
-	#index = index +1
-	#print("Index ",index)
-	#print(len(trainSet))
-	# print dataset[trainSize]
+
 	return [trainSet, copy]
 
 def separateByClass(dataset):
@@ -53,11 +47,9 @@ def summarize(dataset):
 
 def summarizeByClass(dataset):
 	separated = separateByClass(dataset)
-	# print zip(*separated[0])[0]
 	summaries = {}
 	for classValue, instances in separated.iteritems():
 		summaries[classValue] = summarize(instances)
-	# print summaries[0]
 	return summaries
 
 def calculateProbability(x, mean, stdev):
@@ -106,17 +98,19 @@ def printSummaries(summaries):
 		print "\n"
 
 def main():
-	filename = 'wine.csv'
+	filename = 'pima.csv'
 	splitRatio = 0.7
 	dataset = loadCsv(filename)
 	trainingSet, testSet = splitDataset(dataset, splitRatio)
+	# for t in trainingSet:
+	# 	print  t
 	print('Split {0} rows into train={1} and test={2} rows').format(len(dataset), len(trainingSet), len(testSet))
 	# prepare model
 	summaries = summarizeByClass(trainingSet)
-	printSummaries(summaries)
+	# printSummaries(summaries)
 	# test model
-	# predictions = getPredictions(summaries, testSet)
-	# accuracy = getAccuracy(testSet, predictions)
-	# print('Accuracy: {0}%').format(accuracy)
+	predictions = getPredictions(summaries, testSet)
+	accuracy = getAccuracy(testSet, predictions)
+	print('Accuracy: {0}%').format(accuracy)
 
 main()
