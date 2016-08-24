@@ -18,23 +18,26 @@
 
   
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
-#include "util.h"
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+#include "defines.h"
+#include "csv.h"
 #include "learning.h"
-
+#include "util.h"
+#include "extra.h"
 
 
 /**
   * Main function
   **/
-
 int main(int argc, char *argv[]) {
 
 
     srand(time(NULL));
 
     /* Load up data and fill in the datasets in memory*/
-    loadCsv(); 
+    loadCsv();
     printf("\nSplit %d rows into train=%d and test=%d rows\n", LINES, TRAINING_LINES, TEST_LINES);
 
     /* Sumarize data*/

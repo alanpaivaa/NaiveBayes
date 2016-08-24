@@ -14,17 +14,15 @@
 #define __LEARNING_H
 /* Exported functions --------------------------------------------------------*/
 
-
-
 float calculateMean(int classNumber, int columnNumber);
 float calculateStdev(int classNumber, int columnNumber, float mean);
-void calculateSummaries();
+void  calculateSummaries();
 float calculateProbability(float x, float mean, float stdev);
 float calculateClassProbability(int classNumber, float *inputVector);
-int predict(float *inputVector);
+int   predict(float *inputVector);
 float getAccuracy();
 float getPrecision(int class);
 float getRecall(int class);
-void calculateMetrics() ;
+void  calculateMetrics();
 
 #endif /* __UTIL_H */

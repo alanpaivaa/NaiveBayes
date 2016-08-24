@@ -1,24 +1,9 @@
-/**
-  ******************************************************************************
-  * @file    main.h
-  * @author  Alan Jeferson and Levi Moreira
-  * @version V1.0
-  * @date    23-August-2016
-  * @brief   This is the header file for the main
-  * @note 	 This file contains the definitions of the main variables in the program.
-  *
-  ******************************************************************************
-  */
+//
+// Created by Alan Jeferson on 24/08/16.
+//
 
-#ifndef __MAIN_H
-#define __MAIN_H
-
-
-
-/* Includes ------------------------------------------------------------------*/
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+#ifndef UNTITLED_DEFINES_H
+#define UNTITLED_DEFINES_H
 
 /**
  * Useful defines.
@@ -62,7 +47,7 @@
 //#define CLASSES 3
 
 
- 
+
 #define TRAINING_LINES ((int) ((LINES * TRAINING_RATIO) + 1))
 #define TEST_LINES (LINES - TRAINING_LINES)
 
@@ -78,15 +63,14 @@ float testSet[TEST_LINES][COLUMNS];
  * means - Holds all the means values used on the training
  **/
 float means[CLASSES][COLUMNS - 1];
-/** 
+/**
  * stdevs - Holds all the standard deviation value used on the training
  **/
 float stdevs[CLASSES][COLUMNS - 1];
 
-/** 
+/**
  * confusionMatrix - Holds the confusion matrix values for the dataset
  **/
 int confusionMatrix[CLASSES][CLASSES];
 
-
-#endif /* __MAIN_H */
+#endif //UNTITLED_DEFINES_H

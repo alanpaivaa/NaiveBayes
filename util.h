@@ -15,10 +15,10 @@
 /* Exported functions --------------------------------------------------------*/
 
 void printSummaries();
-void loadCsv();
 void printTestset();
 void printTrainingSet() ;
 void printConfusionMatrix();
 void printTestSetLine(int line);
+void printMetrics();
 
 #endif /* __UTIL_H */
