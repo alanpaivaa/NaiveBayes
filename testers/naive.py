@@ -2,6 +2,7 @@
 import csv
 import random
 import math
+import numpy
 
 def loadCsv(filename):
 	lines = csv.reader(open(filename, "rb"))
@@ -97,6 +98,15 @@ def printSummaries(summaries):
 			print "(%11.6f, %11.6f)" % (s[0], s[1])
 		print "\n"
 
+def getConfusionMatriz(testSet,predictions):
+	confusionM = numpy.zeros(shape=(3,3))
+	for i in range(len(testSet)):
+		predicted = int(predictions[i])
+		correct = int(testSet[i][-1])
+		confusionM[correct, predicted]+=1
+	return confusionM
+
+
 def main():
 	filename = 'pima.csv'
 	splitRatio = 0.7
@@ -107,10 +117,13 @@ def main():
 	print('Split {0} rows into train={1} and test={2} rows').format(len(dataset), len(trainingSet), len(testSet))
 	# prepare model
 	summaries = summarizeByClass(trainingSet)
-	# printSummaries(summaries)
+
 	# test model
 	predictions = getPredictions(summaries, testSet)
 	accuracy = getAccuracy(testSet, predictions)
 	print('Accuracy: {0}%').format(accuracy)
+
+	print getConfusionMatriz(testSet,predictions)
+
 
 main()
