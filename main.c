@@ -23,10 +23,13 @@
 #include "learning.h"
 
 
-
+/**
+* @brief print out the metrics (Recall, Precision and Accuracy for the model)
+* @note Please note that the Recall and Precision are printed by class and the Accuracy is for the whole model
+**/
 void printMetrics()
 {
-    printf("\n------------------Metrics for the Model------------------\n");
+    printf("\n------------------Metrics for the Model---------------------------\n");
     int i;
     for(i = 0; i<CLASSES; i++)
     {
@@ -63,7 +66,7 @@ float getCrossAccuracy(int fold)
 }
 
 /**
-* Shows off the skill of the classifier by predicting the class of a certain entry
+* @brief Shows off the skill of the classifier by predicting the class of a certain entry
 * @param the line of the test set to be predicted
 **/
 
@@ -85,6 +88,9 @@ void showOff(int testLine)
 
 }
 
+/**
+  * Main function
+  **/
 
 int main(int argc, char *argv[]) {
   
@@ -101,6 +107,7 @@ int main(int argc, char *argv[]) {
     /*Calculates Recall and Precision for classes*/
     calculateMetrics();
 
+    /*Print confusion matrix for the model*/
     printConfusionMatrix();
     
     /* Show the metrics for the model*/

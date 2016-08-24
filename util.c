@@ -135,7 +135,7 @@ void loadCsv() {
 }
 
 /**
- * @brief Prints the summaries to the console
+ *@brief Prints the summaries to the console
  * */
 void printSummaries() {
 
@@ -150,6 +150,10 @@ void printSummaries() {
 
 }
 
+
+/**
+*@brief Prints the confusion matrix of the model
+*/
 void printConfusionMatrix()
 {
     printf("------------------Confusion Matrix for the Model------------------\n");
@@ -164,7 +168,7 @@ void printConfusionMatrix()
 }
 
 /**
-* Prints a given line from the test set
+* @brief Prints a given line from the test set
 * @param The line index to be printed
 **/
 void printTestSetLine(int line)

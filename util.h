@@ -19,5 +19,6 @@ void loadCsv();
 void printTestset();
 void printTrainingSet() ;
 void printConfusionMatrix();
+void printTestSetLine(int line);
 
 #endif /* __UTIL_H */

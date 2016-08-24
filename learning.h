@@ -25,5 +25,6 @@ int predict(float *inputVector);
 float getAccuracy();
 float getPrecision(int class);
 float getRecall(int class);
+void calculateMetrics() ;
 
 #endif /* __UTIL_H */

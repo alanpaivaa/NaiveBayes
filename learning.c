@@ -15,7 +15,7 @@
 #include "main.h"
 
 /**
- * Calculates the mean/avarage of a column of attributes considering they belong to a certain class
+ * @brief Calculates the mean/avarage of a column of attributes considering they belong to a certain class
  * @param int classNumber - The number of the class to be considered
  * @param int columnNumber - The column of attributes about which the mean will be calculated
  * @return Returns a float with the average of the values of the column considering the class number
@@ -48,7 +48,7 @@ float calculateMean(int classNumber, int columnNumber)
 
 
 /**
- * Calculates the standard deviation of a column that belongs to a class.
+ * @brief Calculates the standard deviation of a column that belongs to a class.
  * @param classNumber - The number of the class to make the calculation.
  * @param columnNumber - The column that indicates which attribute will be considered.
  * @param mean - The mean for the same class and column numbers above.
@@ -80,8 +80,8 @@ float calculateStdev(int classNumber, int columnNumber, float mean) {
 
 
 /**
- * Calculates the summaries of the data and saves them to the correct arrays
- * The second part fo the Naive Bayes algorithm is to summarize the dataset.
+ * @brief Calculates the summaries of the data and saves them to the correct arrays
+ * @note The second part fo the Naive Bayes algorithm is to summarize the dataset.
  * The summaries are the means and standard deviations of the data separated by class
  * Two subarrays are used to hold the summaries, their sizes are NUMBER_OF_CLASSES*NUMBER_OF_FEATURES
  * Therefore the first line of the arrays contain the summaries for the first class and so on and so forth
@@ -102,8 +102,8 @@ void calculateSummaries()
 
 
 /**
- * Calculates the probability of a given number belonging to a distribution based on the gaussian:
- * p = 1/(sqrt(2*PI*stdev)) * e^-(((x- mean)^2)/(2*(stdev^2)))
+ * @brief Calculates the probability of a given number belonging to a distribution based on the gaussian:
+ * @note p = 1/(sqrt(2*PI*stdev)) * e^-(((x- mean)^2)/(2*(stdev^2)))
  * Where stdev is the standard deviation of the column and class to which x belongs to
  * Where mean is the mean of the column and class to which x belongs to
  * @param float x - the input value to be evaluated by the formula
@@ -119,7 +119,7 @@ float calculateProbability(float x, float mean, float stdev)
 
 
 /**
- * Calculates the total probability of a certain class based on single probabilities yielded by each feature
+ * @brief Calculates the total probability of a certain class based on single probabilities yielded by each feature
  * @param int classNumber - The class to be considered
  * @return the cumulative probability of that class
 */
@@ -140,7 +140,7 @@ float calculateClassProbability(int classNumber, float *inputVector)
 
 
 /**
- * Predicts to which class the input vector belongs. Basically, runs over the probabilities for each class
+ * @brief Predicts to which class the input vector belongs. Basically, runs over the probabilities for each class
  * and returns the highest one.
  * @return the predicted class to which the input vector belongs.
  * */
@@ -170,8 +170,8 @@ int predict(float *inputVector) {
 }
 
 /**
- * Fills in the values in the confusion matrix
- * The size of the Confusion Matrix is determined by the number of possible classes. 
+ * @brief Fills in the values in the confusion matrix
+ * @note The size of the Confusion Matrix is determined by the number of possible classes. 
  * A confusion matrix for a 2 class model is:
  *                      Predicted Class 0           Predicted Class 1
  * Entry is of Class 0  True positives              False Negatives
@@ -202,7 +202,7 @@ void calculateMetrics()
 
 
 /**
- * Makes predicions based on the test set and then calculate the percentage of hits
+ * @brief Makes predicions based on the test set and then calculate the percentage of hits
  * @return The percentage of right predictions on the test set.
  * */
 float getAccuracy() {
@@ -228,8 +228,8 @@ float getAccuracy() {
 }
 
 /**
- * Analyzes the Confusion Matrix outputed by the model and calculates the recall.
- * The recall, or sensibility reveals the capability of the model to correclty predict a class in the cases
+ * @brief Analyzes the Confusion Matrix outputed by the model and calculates the recall.
+ * @note The recall, or sensibility reveals the capability of the model to correclty predict a class in the cases
  * in which a data entry belongs to that class
  * @return The true positives over the sum of true positves and false negatives
  * */
@@ -246,8 +246,8 @@ float getRecall(int class)
 }
 
 /**
- * Analyzes the Confusion Matrix outputed by the model and calculates the precision.
- * The precision, or specificity reveals the capability of the model to correclty predict a class in the cases
+ * @brief Analyzes the Confusion Matrix outputed by the model and calculates the precision.
+ * @note The precision, or specificity reveals the capability of the model to correclty predict a class in the cases
  * in which a data entry doesn't belong to that class
  * @return The true negatives over the sum of true negatives and false positives
  * */
