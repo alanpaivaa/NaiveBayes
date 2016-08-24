@@ -24,16 +24,16 @@ float calculateMean(int classNumber, int columnNumber)
 {
     int i;
 
-    /**< holds the amount of values used in the calculation*/
+    /* holds the amount of values used in the calculation*/
     int total = 0;
 
-    /**< holds the sum of the values used in the calculation */
+    /* holds the sum of the values used in the calculation */
     float values = 0;
 
-    /**< Calculate the mean only for the training data, the first 70% values of the dataset */
+    /* Calculate the mean only for the training data, the first 70% values of the dataset */
     for(i = 0; i < TRAINING_LINES; i++)
     {
-        /**< if the data is from the correct class, then add it to the mean calculation */
+        /* if the data is from the correct class, then add it to the mean calculation */
         if(trainingSet[i][COLUMNS-1]==classNumber)
         {
             values+=trainingSet[i][columnNumber];
@@ -57,23 +57,23 @@ float calculateStdev(int classNumber, int columnNumber, float mean) {
 
     int i;
 
-    /**<  The variance for the given classNumber and columnNumber */
+    /*  The variance for the given classNumber and columnNumber */
     float variance = 0;
 
-    /**<  Counter for the number of elements to be able to derive the standard deviation */
+    /*  Counter for the number of elements to be able to derive the standard deviation */
     float count = 0;
 
-    /**<  Iterating over the training set */
+    /*  Iterating over the training set */
     for(i = 0; i < TRAINING_LINES; i++) {
 
-        /**<  Checks if the current loop is at the chosen class */
+        /*  Checks if the current loop is at the chosen class */
         if(trainingSet[i][COLUMNS - 1] == classNumber) {
             variance += pow(trainingSet[i][columnNumber] - mean, 2);
             count += 1;
         }
     }
 
-    /**<  Deriving the standard deviation from variance and count */
+    /*  Deriving the standard deviation from variance and count */
     return sqrt(variance/(count - 1));
 
 }
@@ -89,9 +89,9 @@ float calculateStdev(int classNumber, int columnNumber, float mean) {
 void calculateSummaries()
 {
     int i,j;
-    for(i = 0; i<CLASSES;i++) /**<  Iterate through classes */
+    for(i = 0; i<CLASSES;i++) /*  Iterate through classes */
     {
-        for(j = 0; j<COLUMNS-1;j++) /**<  Iterate through features */
+        for(j = 0; j<COLUMNS-1;j++) /*  Iterate through features */
         {
             means[i][j] = calculateMean(i, j);
             stdevs[i][j] = calculateStdev(i, j, means[i][j]);
@@ -130,10 +130,10 @@ float calculateClassProbability(int classNumber, float *inputVector)
 {
     int i;
     float classProbability = 1;
-    /**<  for each feature, calculate the probability and multiply them together */
+    /*  for each feature, calculate the probability and multiply them together */
     for(i = 0; i<COLUMNS-1; i++)
     {
-        /**<  considering the Bayes criterion, the total probability is the product of each single probability */
+        /*  considering the Bayes criterion, the total probability is the product of each single probability */
         classProbability*=calculateProbability(inputVector[i], means[classNumber][i], stdevs[classNumber][i] );
     }
 
@@ -151,18 +151,18 @@ int predict(float *inputVector) {
 
     int i;
 
-    /**<  Probability of a class in each loop */
+    /*  Probability of a class in each loop */
     float classProb;
 
-    /**<  Holds the highest probability */
+    /*  Holds the highest probability */
     float bestProb = -1;
 
-    /**<  Holds the number of class which has the highest probability */
+    /*  Holds the number of class which has the highest probability */
     int bestLabel = -1;
 
     for(i = 0; i < CLASSES; i++) {
-        classProb = calculateClassProbability(i, inputVector); /**<  Calculating the probability for the current class on the loop */
-        if(classProb > bestProb) { /**<  Checking if the new class' probability is higher than the highest known probability */
+        classProb = calculateClassProbability(i, inputVector); /*  Calculating the probability for the current class on the loop */
+        if(classProb > bestProb) { /*  Checking if the new class' probability is higher than the highest known probability */
             bestProb = classProb;
             bestLabel = i;
         }
@@ -180,20 +180,20 @@ float getAccuracy() {
 
     int i;
 
-    /**<  Number of correct predictions */
+    /*  Number of correct predictions */
     int correct = 0;
 
-    /**<  Holds the current prediction on the loop */
+    /*  Holds the current prediction on the loop */
     int prediction;
 
     for(i = 0; i < TEST_LINES; i++) {
-        prediction = predict(testSet[i]); /**<  Gets the prediction for a given test set line */
-        if(prediction == (int) testSet[i][COLUMNS - 1]) { /**<  Checks if the prediction hits */
+        prediction = predict(testSet[i]); /*  Gets the prediction for a given test set line */
+        if(prediction == (int) testSet[i][COLUMNS - 1]) { /*  Checks if the prediction hits */
             correct++;
         }
     }
 
-    /**<  Returns the percentage of hits */
+    /*  Returns the percentage of hits */
     return (((float) correct) / TEST_LINES) * 100;
 
 }

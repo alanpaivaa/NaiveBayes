@@ -50,14 +50,14 @@ float getCrossAccuracy(int fold)
 
 int main(int argc, char *argv[]) {
   
-    /**<Load up data and fill in the datasets in memory*/
+    /* Load up data and fill in the datasets in memory*/
     loadCsv(); 
     printf("Split %d rows into train=%d and test=%d rows\n", LINES, TRAINING_LINES, TEST_LINES);
 
-    /**<Sumarize data*/
+    /* Sumarize data*/
     calculateSummaries();
 
-    /**<Calculate the model accuracy*/
+    /* Calculate the model accuracy*/
     printf("Model Accuracy for the above split: %f%%\n", getAccuracy());
     
     //printf("Cross Accuracy for model: %f%%\n", getCrossAccuracy(10));
