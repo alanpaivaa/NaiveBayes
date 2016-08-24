@@ -9,7 +9,8 @@
   * It's been adapted from the python version in: http://machinelearningmastery.com/naive-bayes-classifier-scratch-python/
   * It was created by .
   * To run the program please place the desired dataset in the datasets folder and run the program :
-  * ./naive PATH_TO_DATATSET NUMBER_OF_SAMPLES NUMBER_OF_FEATURES+1 NUMBER_OF_CLASSES
+  *  1) Compile gcc main.c learning.c util.c -o main -lm
+  *  2) Run ./main
   * This program should only be used with numerical datasets of integer/float numbers
   *
   ******************************************************************************
@@ -22,9 +23,14 @@
 
 int main(int argc, char *argv[]) {
 
-    loadCsv();
+    /*Load up data and fill in the datasets in memory*/
+    loadCsv(); 
     printf("Split %d rows into train=%d and test=%d rows\n", LINES, TRAINING_LINES, TEST_LINES);
+
+    /*Sumarize data*/
     calculateSummaries();
+
+    /*Calculate the model accuracy*/
     printf("Model Accuracy for the above split: %f%%\n", getAccuracy());
     
 

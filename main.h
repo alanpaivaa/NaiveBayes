@@ -5,6 +5,7 @@
   * @version V1.0
   * @date    23-August-2016
   * @brief   This is the header file for the main
+  * @note 	 This file contains the definitions of the main variables in the program.
   *
   ******************************************************************************
   */
@@ -31,6 +32,8 @@
 #define LINES 768
 #define COLUMNS 9
 #define CLASSES 2
+#define TRAINING_LINES ((int) ((LINES * TRAINING_RATIO) + 1))
+#define TEST_LINES (LINES - TRAINING_LINES)
 
 /**
  * Column dataset.
@@ -56,8 +59,6 @@
 //#define COLUMNS 14
 //#define CLASSES 3
 
-#define TRAINING_LINES ((int) ((LINES * TRAINING_RATIO) + 1))
-#define TEST_LINES (LINES - TRAINING_LINES)
 
 
 /**
