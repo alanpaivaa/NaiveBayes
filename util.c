@@ -163,3 +163,15 @@ void printConfusionMatrix()
     }
 }
 
+/**
+* Prints a given line from the test set
+* @param The line index to be printed
+**/
+void printTestSetLine(int line)
+{
+    int i;
+    for(i = 0; i<COLUMNS; i++)
+    {
+        printf("%2.2f, ",testSet[line][i]);
+    }
+}

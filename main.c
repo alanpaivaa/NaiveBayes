@@ -62,9 +62,35 @@ float getCrossAccuracy(int fold)
     return cumulativeAccuracy/10;
 }
 
+/**
+* Shows off the skill of the classifier by predicting the class of a certain entry
+* @param the line of the test set to be predicted
+**/
+
+void showOff(int testLine)
+{
+    printf("\n---------------------------Prediction Demonstration----------------------");
+    printf("\nShowing off the prediction skills in the input vector: \n");
+    printTestSetLine(testLine);
+    int prediction = predict(testSet[testLine]);
+    printf("\nPredicted class %d\n",prediction );
+    if(prediction==testSet[testLine][COLUMNS-1])
+    {
+        printf("It's a hit :)\n");
+    }else
+    {
+        printf("It's a miss :(\n");
+    }
+
+
+}
+
 
 int main(int argc, char *argv[]) {
   
+
+    srand(time(NULL));
+
     /* Load up data and fill in the datasets in memory*/
     loadCsv(); 
     printf("\nSplit %d rows into train=%d and test=%d rows\n", LINES, TRAINING_LINES, TEST_LINES);
@@ -72,12 +98,18 @@ int main(int argc, char *argv[]) {
     /* Sumarize data*/
     calculateSummaries();
 
+    /*Calculates Recall and Precision for classes*/
     calculateMetrics();
+
     printConfusionMatrix();
-    /* Calculate the model accuracy*/
     
+    /* Show the metrics for the model*/
     printMetrics();
-    //printf("Cross Accuracy for model: %f%%\n", getCrossAccuracy(10));
+
+    /*Show off the prediction skills*/
+    showOff(rand()%TEST_LINES);
+
+   // printf("Cross Accuracy for model: %f%%\n", getCrossAccuracy(10));
 
     return 0;
 }

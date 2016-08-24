@@ -40,10 +40,10 @@
 /*
  * Column dataset.
  */
-//#define PATH "datasets/column.csv"
-//#define LINES 310
-//#define COLUMNS 7
-//#define CLASSES 2
+#define PATH "datasets/column.csv"
+#define LINES 310
+#define COLUMNS 7
+#define CLASSES 2
 
 /*
  * Iris dataset.
@@ -56,10 +56,10 @@
 /*
  * Wine dataset.
  */
-#define PATH "datasets/wine.csv"
-#define LINES 178
-#define COLUMNS 14
-#define CLASSES 3
+//#define PATH "datasets/wine.csv"
+//#define LINES 178
+//#define COLUMNS 14
+//#define CLASSES 3
 
 
  

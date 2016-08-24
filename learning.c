@@ -101,9 +101,6 @@ void calculateSummaries()
 }
 
 
-
-
-
 /**
  * Calculates the probability of a given number belonging to a distribution based on the gaussian:
  * p = 1/(sqrt(2*PI*stdev)) * e^-(((x- mean)^2)/(2*(stdev^2)))
