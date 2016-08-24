@@ -35,7 +35,7 @@ void printMetrics()
         printf("Recall %2.2f\n",getRecall(i) );
         printf("\n");
     }
-    
+
     printf("\nModel Accuracy for the above split: %f%%\n", getAccuracy());
 }
 

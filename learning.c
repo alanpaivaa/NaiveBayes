@@ -173,10 +173,16 @@ int predict(float *inputVector) {
 }
 
 /**
- * Makes predicions based on the test set and then calculate the percentage of hits
- * @return The percentage of right predictions on the test set.
+ * Fills in the values in the confusion matrix
+ * The size of the Confusion Matrix is determined by the number of possible classes. 
+ * A confusion matrix for a 2 class model is:
+ *                      Predicted Class 0           Predicted Class 1
+ * Entry is of Class 0  True positives              False Negatives
+ * Entry is of Class 1  False positives             True Negatives
+ *
  * */
-void calculateMetrics() {
+void calculateMetrics() 
+{
 
     int i,j;
 
@@ -185,9 +191,6 @@ void calculateMetrics() {
         for(j = 0; j<CLASSES; j++)
             confusionMatrix[i][j] = 0;
     }
-
-    /*  Number of correct predictions */
-    int correct = 0;
 
     /*  Holds the current prediction on the loop */
     int prediction;
@@ -201,18 +204,38 @@ void calculateMetrics() {
 }
 
 
-float getAccuracy()
-{
+/**
+ * Makes predicions based on the test set and then calculate the percentage of hits
+ * @return The percentage of right predictions on the test set.
+ * */
+float getAccuracy() {
+
     int i;
-    int hits = 0;
-    for(i = 0; i<CLASSES; i++)
-    {
-        hits+=confusionMatrix[i][i];
+
+    /*  Number of correct predictions */
+    int correct = 0;
+
+    /*  Holds the current prediction on the loop */
+    int prediction;
+
+    for(i = 0; i < TEST_LINES; i++) {
+        prediction = predict(testSet[i]); /*  Gets the prediction for a given test set line */
+        if(prediction == (int) testSet[i][COLUMNS - 1]) { /*  Checks if the prediction hits */
+            correct++;
+        }
     }
 
-    return (hits/(float)TEST_LINES)*100;
+    /*  Returns the percentage of hits */
+    return (((float) correct) / TEST_LINES) * 100;
+
 }
 
+/**
+ * Analyzes the Confusion Matrix outputed by the model and calculates the recall.
+ * The recall, or sensibility reveals the capability of the model to correclty predict a class in the cases
+ * in which a data entry belongs to that class
+ * @return The true positives over the sum of true positves and false negatives
+ * */
 float getRecall(int class)
 {
     int i;
@@ -225,6 +248,12 @@ float getRecall(int class)
     return (confusionMatrix[class][class]/(float)sum);
 }
 
+/**
+ * Analyzes the Confusion Matrix outputed by the model and calculates the precision.
+ * The precision, or specificity reveals the capability of the model to correclty predict a class in the cases
+ * in which a data entry doesn't belong to that class
+ * @return The true negatives over the sum of true negatives and false positives
+ * */
 float getPrecision(int class)
 {
     int i;

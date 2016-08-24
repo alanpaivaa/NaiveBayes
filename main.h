@@ -32,12 +32,10 @@
 /**
  * Pima dataset
  * */
-#define PATH "datasets/pima.csv"
-#define LINES 768
-#define COLUMNS 9
-#define CLASSES 2
-#define TRAINING_LINES ((int) ((LINES * TRAINING_RATIO) + 1))
-#define TEST_LINES (LINES - TRAINING_LINES)
+//#define PATH "datasets/pima.csv"
+//#define LINES 768
+//#define COLUMNS 9
+//#define CLASSES 2
 
 /*
  * Column dataset.
@@ -57,13 +55,16 @@
 
 /*
  * Wine dataset.
- * /
-//#define PATH "datasets/wine.csv"
-//#define LINES 178
-//#define COLUMNS 14
-//#define CLASSES 3
+ */
+#define PATH "datasets/wine.csv"
+#define LINES 178
+#define COLUMNS 14
+#define CLASSES 3
 
 
+ 
+#define TRAINING_LINES ((int) ((LINES * TRAINING_RATIO) + 1))
+#define TEST_LINES (LINES - TRAINING_LINES)
 
 /**
  * trainingSet - Matrix that contains the training data, that will be used to make predictions
@@ -82,6 +83,9 @@ float means[CLASSES][COLUMNS - 1];
  **/
 float stdevs[CLASSES][COLUMNS - 1];
 
+/** 
+ * confusionMatrix - Holds the confusion matrix values for the dataset
+ **/
 int confusionMatrix[CLASSES][CLASSES];
 
 
