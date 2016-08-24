@@ -39,25 +39,25 @@
 #define TRAINING_LINES ((int) ((LINES * TRAINING_RATIO) + 1))
 #define TEST_LINES (LINES - TRAINING_LINES)
 
-/**
+/*
  * Column dataset.
- * */
+ */
 //#define PATH "datasets/column.csv"
 //#define LINES 310
 //#define COLUMNS 7
 //#define CLASSES 2
 
-/**
+/*
  * Iris dataset.
- * */
+ */
 //#define PATH "datasets/iris.csv"
 //#define LINES 150
 //#define COLUMNS 5
 //#define CLASSES 3
 
-/**
+/*
  * Wine dataset.
- * */
+ * /
 //#define PATH "datasets/wine.csv"
 //#define LINES 178
 //#define COLUMNS 14
@@ -67,13 +67,19 @@
 
 /**
  * trainingSet - Matrix that contains the training data, that will be used to make predictions
- * testSet - Holds the data that will be tested after the training
- * means - Holds all the means values used on the training
- * stdevs - Holds all the standard deviation value used on the training
- * */
+ **/
 float trainingSet[TRAINING_LINES][COLUMNS];
+/**
+ * testSet - Holds the data that will be tested after the training
+ **/
 float testSet[TEST_LINES][COLUMNS];
+/**
+ * means - Holds all the means values used on the training
+ **/
 float means[CLASSES][COLUMNS - 1];
+/** 
+ * stdevs - Holds all the standard deviation value used on the training
+ **/
 float stdevs[CLASSES][COLUMNS - 1];
 
 
