@@ -13,16 +13,20 @@
 #ifndef __MAIN_H
 #define __MAIN_H
 
-#include<stdio.h>
-#include<stdlib.h>
-#include<math.h>
+
+
+/* Includes ------------------------------------------------------------------*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 
 /**
  * Useful defines.
  * */
 #define COMMA_ASCII 44
 #define LINE_FEED_ASCII 10
-#define TRAINING_RATIO 0.5
+#define TRAINING_RATIO 0.7
+#define RANDOM_SETS 0
 #define PI 3.141592653589793
 
 /**

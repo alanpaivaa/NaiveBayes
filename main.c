@@ -16,23 +16,51 @@
   ******************************************************************************
   */
 
+  
+/* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "util.h"
 #include "learning.h"
 
 
-int main(int argc, char *argv[]) {
 
-    /*Load up data and fill in the datasets in memory*/
+/*
+* @brief Calculates the k-fold cross Accuracy for the whole dataset. This function is used for test purposes only.
+* @param The size of the fold (normally 10)
+* @return The mean accuracy for the fold
+*/
+float getCrossAccuracy(int fold)
+{
+    int i;
+    float cumulativeAccuracy = 0;
+    float currentAccuracy = 0;
+    for(i = 0; i<fold; i++)
+    {
+       // srand(time(0)+i*123);
+        loadCsv();
+        calculateSummaries();
+        currentAccuracy = getAccuracy();
+        printf("%2.2f\n",currentAccuracy);
+        cumulativeAccuracy+=currentAccuracy;
+    }
+
+    return cumulativeAccuracy/10;
+}
+
+
+int main(int argc, char *argv[]) {
+  
+    /**<Load up data and fill in the datasets in memory*/
     loadCsv(); 
     printf("Split %d rows into train=%d and test=%d rows\n", LINES, TRAINING_LINES, TEST_LINES);
 
-    /*Sumarize data*/
+    /**<Sumarize data*/
     calculateSummaries();
 
-    /*Calculate the model accuracy*/
+    /**<Calculate the model accuracy*/
     printf("Model Accuracy for the above split: %f%%\n", getAccuracy());
     
+    //printf("Cross Accuracy for model: %f%%\n", getCrossAccuracy(10));
 
     return 0;
 }
