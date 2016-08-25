@@ -27,10 +27,8 @@
   * Main function
   **/
 int main(int argc, char *argv[]) {
-
-
+    
     srand(time(NULL));
-
     generateTrainingFiles();
 
     return 0;
