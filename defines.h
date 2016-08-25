@@ -14,10 +14,15 @@
 #define RANDOM_SETS 0       //determine if data is split randmonly (1) or not (0)
 #define PI 3.141592653589793
 
+#define DATASET_DIR "datasets"
+#define SUMMARIES_DIR "summaries"
+#define SUMMARIES_SUFIX_MEANS "_means.csv"
+#define SUMMARIES_SUFIX_STDEVS "_stdevs.csv"
+
 /**
  * Pima dataset
  * */
-#define PATH "datasets/pima.csv"
+#define DATASET "pima"
 #define LINES 768
 #define COLUMNS 9
 #define CLASSES 2
