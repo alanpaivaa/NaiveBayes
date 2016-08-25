@@ -14,7 +14,7 @@ void loadTestsetFromCsv() {
     int c; /* Last read character */
     char buffer[15]; /* Holds the current character in the file */
     char bc = 0; /* Counter for the buffer, for appending new characters each time */
-    char path[30] = TESTSET_DIR;
+    char path[50] = TESTSET_DIR;
     FILE *file; /* File pointer */
     int count = 0; /* Tells the position of a character in a line */
 
@@ -76,7 +76,7 @@ void writeMatrixToFile(float *vector, FILE *file, int lines, int columns) {
 void loadSummariesFromCsv() {
 
     FILE *file; // Pointers to the files
-    char path[30] = SUMMARIES_DIR; // Path to file
+    char path[50] = SUMMARIES_DIR; // Path to file
     int c; /* Last read character */
     char buffer[15]; /* Holds the current character in the file */
     char bc = 0; /* Counter for the buffer, for appending new characters each time */

@@ -122,7 +122,7 @@ void writeMatrixToFile(float *vector, FILE *file, int lines, int columns) {
 void writeTestsetToCsv() {
 
     FILE *file; // Pointer to the files
-    char path[30] = TESTSET_DIR; // Path to file
+    char path[50] = TESTSET_DIR; // Path to file
 
     // Opening the file
     strcat(path, "/");
@@ -148,7 +148,7 @@ void writeTestsetToCsv() {
 void writeSummariesToCsv() {
 
     FILE *file; // Pointers to the files
-    char path[30] = SUMMARIES_DIR; // Path to file
+    char path[50] = SUMMARIES_DIR; // Path to file
 
     // Opening the file
     strcat(path, "/");

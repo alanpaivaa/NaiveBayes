@@ -14,8 +14,8 @@
 #define RANDOM_SETS 0       //determine if data is split randmonly (1) or not (0)
 #define PI 3.141592653589793
 
-#define TESTSET_DIR "training/datasets/test"
-#define SUMMARIES_DIR "training/summaries"
+#define TESTSET_DIR "../datasets/test"
+#define SUMMARIES_DIR "../datasets/summaries"
 
 
 /*

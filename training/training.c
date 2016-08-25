@@ -1,7 +1,7 @@
 //
 // Created by Alan Jeferson on 24/08/16.
 //
-
+#include<stdio.h>
 #include<math.h>
 #include "defines.h"
 #include "csv.h"
@@ -21,7 +21,7 @@ float calculateMean(int classNumber, int columnNumber)
 
     /* holds the sum of the values used in the calculation */
     float values = 0;
-”
+
     /* Calculate the mean only for the training data, the first 70% values of the dataset */
     for(i = 0; i < TRAINING_LINES; i++)
     {
@@ -93,6 +93,22 @@ void calculateSummaries()
 }
 
 /**
+ * @brief Prints to the console the test dataset.
+ * */
+void printTestset() {
+    int i, j;
+    for (i = 0; i < TEST_LINES; i++) {
+        for (j = 0; j < COLUMNS; j++) {
+            printf("%f", testSet[i][j]);
+            if(j < COLUMNS - 1) {
+                printf(", ");
+            }
+        }
+        printf("\n");
+    }
+}
+
+/**
  * @brief Loads an entire dataset, processes the summaries and writes the testset and summaries files.
  * */
 void generateTrainingFiles() {
@@ -100,5 +116,6 @@ void generateTrainingFiles() {
     writeTestsetToCsv(); /* Writing the test set to a csv file */
     calculateSummaries(); /* Calculating the summaries */
     writeSummariesToCsv(); /* Writing the summaries to a csv file */
+    printf("Successfully generated files!\n");
 }
 
