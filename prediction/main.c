@@ -16,16 +16,16 @@
   ******************************************************************************
   */
 
-  
+
 /* Includes ------------------------------------------------------------------*/
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
-#include "defines.h"
-#include "csv.h"
+#include "../defines.h"
 #include "prediction.h"
-#include "util.h"
+#include "../util.h"
 #include "extra.h"
+#include "csv.h"
 
 
 /**
@@ -36,9 +36,9 @@ int main(int argc, char *argv[]) {
 
     srand(time(NULL));
 
-    loadPredicionFiles();
+    loadTestsetFromCsv();
 
-    printTestset();
+    loadSummariesFromCsv();
 
     /*Calculates Recall and Precision for classes*/
     calculateMetrics();
@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
     printConfusionMatrix();
 
     /* Show the metrics for the model*/
-   printMetrics();
+    printMetrics();
 
     /*Show off the prediction skills*/
     showOff(rand()%TEST_LINES);

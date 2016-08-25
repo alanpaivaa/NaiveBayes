@@ -22,14 +22,26 @@
 #include <stdlib.h>
 #include <time.h>
 #include "training.h"
+#include "csv.h"
 
 /**
   * Main function
   **/
 int main(int argc, char *argv[]) {
-    
+
     srand(time(NULL));
-    generateTrainingFiles();
+
+    loadFullDatasetFromCsv(); /* Loading an entire dataset */
+    printf("CSV file loaded into training and test sets!\n");
+
+    writeTestsetToCsv(); /* Writing the test set to a csv file */
+    printf("Testset written to a CSV file!\n");
+
+    calculateSummaries(); /* Calculating the summaries */
+    printf("Summaries calculated!\n");
+
+    writeSummariesToCsv(); /* Writing the summaries to a csv file */
+    printf("Summaries written to a CSV file!\n");
 
     return 0;
 }

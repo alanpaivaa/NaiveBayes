@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include "defines.h"
+#include "../defines.h"
 #include "csv.h"
 #include "prediction.h"
-#include "util.h"
+#include "../util.h"
 
 /**
 * @brief Shows off the skill of the classifier by predicting the class of a certain entry

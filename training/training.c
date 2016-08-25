@@ -3,8 +3,9 @@
 //
 #include<stdio.h>
 #include<math.h>
-#include "defines.h"
+#include "../defines.h"
 #include "csv.h"
+#include "../util.h"
 
 /**
  * @brief Calculates the mean/avarage of a column of attributes considering they belong to a certain class
@@ -90,32 +91,5 @@ void calculateSummaries()
         }
 
     }
-}
-
-/**
- * @brief Prints to the console the test dataset.
- * */
-void printTestset() {
-    int i, j;
-    for (i = 0; i < TEST_LINES; i++) {
-        for (j = 0; j < COLUMNS; j++) {
-            printf("%f", testSet[i][j]);
-            if(j < COLUMNS - 1) {
-                printf(", ");
-            }
-        }
-        printf("\n");
-    }
-}
-
-/**
- * @brief Loads an entire dataset, processes the summaries and writes the testset and summaries files.
- * */
-void generateTrainingFiles() {
-    loadFullDatasetFromCsv(); /* Loading an entire dataset */
-    writeTestsetToCsv(); /* Writing the test set to a csv file */
-    calculateSummaries(); /* Calculating the summaries */
-    writeSummariesToCsv(); /* Writing the summaries to a csv file */
-    printf("Successfully generated files!\n");
 }
 

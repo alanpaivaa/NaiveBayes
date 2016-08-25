@@ -46,3 +46,4 @@ fabric.properties
 main
 summaries/*
 datasets/test/*
+datasets/summaries/*

@@ -20,6 +20,6 @@ float getAccuracy();
 float getPrecision(int class);
 float getRecall(int class);
 void  calculateMetrics();
-void  loadPredicionFiles();
+void  printMetrics();
 
 #endif //UNTITLED_PREDICTION_H

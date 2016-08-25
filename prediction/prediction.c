@@ -11,9 +11,9 @@
 
 
 /* Includes ------------------------------------------------------------------*/
-#include "defines.h"
+#include<stdio.h>
+#include "../defines.h"
 #include "math.h"
-#include "csv.h"
 
 
 /**
@@ -33,12 +33,10 @@ float calculateProbability(float x, float mean, float stdev)
     double res = (1 / (sqrt(2*PI) * stdev)) * exponent;
     if(res == 0.0)
     {
-    // printf("%2.6f\n",res);
      return 0.0;
     }
     else
     {
-      //printf("%2.6f\n",res);
       return log(res);
     }
 }
@@ -179,8 +177,7 @@ float getRecall(int class)
  * in which a data entry doesn't belong to that class
  * @return The true negatives over the sum of true negatives and false positives
  * */
-float getPrecision(int class)
-{
+float getPrecision(int class) {
     int i;
     int sum = 0;
     for(i = 0; i<CLASSES;i++)
@@ -193,9 +190,20 @@ float getPrecision(int class)
 }
 
 /**
- * @brief Loads the testset and summaries files to the arrays.
- * */
-void loadPredicionFiles() {
-    loadTestsetFromCsv();
-    loadSummariesFromCsv();
+* @brief print out the metrics (Recall, Precision and Accuracy for the model)
+* @note Please note that the Recall and Precision are printed by class and the Accuracy is for the whole model
+**/
+void printMetrics()
+{
+    printf("\n------------------Metrics for the Model---------------------------\n");
+    int i;
+    for(i = 0; i<CLASSES; i++)
+    {
+        printf("Metrics for Class %d\n", i);
+        printf("Precision %2.2f\n", getPrecision(i));
+        printf("Recall %2.2f\n",getRecall(i) );
+        printf("\n");
+    }
+
+    printf("\nModel Accuracy for the above split: %f%%\n", getAccuracy());
 }

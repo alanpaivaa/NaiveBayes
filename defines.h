@@ -14,6 +14,7 @@
 #define RANDOM_SETS 0       //determine if data is split randmonly (1) or not (0)
 #define PI 3.141592653589793
 
+#define DATASET_DIR "../datasets/full"
 #define TESTSET_DIR "../datasets/test"
 #define SUMMARIES_DIR "../datasets/summaries"
 
@@ -21,18 +22,18 @@
 /*
  * MultiFeature dataset.
  */
-//#define DATASET "mfeat"
-//#define LINES 2000
-//#define COLUMNS 77
-//#define CLASSES 10
+#define DATASET "mfeat"
+#define LINES 2000
+#define COLUMNS 77
+#define CLASSES 10
 
 /*
  * Urbanland dataset.
  */
-#define DATASET "urbanland"
-#define LINES 168
-#define COLUMNS 148
-#define CLASSES 9
+//#define DATASET "urbanland"
+//#define LINES 168
+//#define COLUMNS 148
+//#define CLASSES 9
 
 /*
  * Libras
@@ -47,7 +48,10 @@
 #define TRAINING_LINES ((int) ((LINES * TRAINING_RATIO) + 1))
 #define TEST_LINES (LINES - TRAINING_LINES)
 
-
+/**
+ * trainingSet - Matrix that contains the training data, that will be used to make predictions
+ **/
+float trainingSet[TRAINING_LINES][COLUMNS];
 /**
  * testSet - Holds the data that will be tested after the training
  **/
