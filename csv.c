@@ -96,50 +96,51 @@ void loadCsv() {
     fclose(file);
 }
 
+/**
+ * @brief Writes the given summary array to a file.
+ * */
+void writeSummaryToFile(float *vector, FILE *file) {
+
+    int i;
+
+    for(i = 0; i < CLASSES * (COLUMNS - 1); i++) {
+        fprintf(file, "%f", *(vector + i));
+        if(i < (CLASSES * (COLUMNS - 1)) - 1) {
+            fprintf(file, ",");
+            if((i % (COLUMNS - 1)) == COLUMNS - 2) {
+                fprintf(file, "\n");
+            }
+        }
+    }
+
+}
+
+/**
+ * @brief Writes both stdev and means matrixes to a file.
+ * */
 void writeCsv() {
 
-    FILE *fileMeans, *fileStdevs; // Pointers to the files
-    int i, j; // Control variables
-    char path[30] = SUMMARIES_DIR; // General path
-    char pathMeans[30], pathStdev[30]; // Specific paths to the means and stdevs files
+    FILE *file; // Pointers to the files
+    char path[30] = SUMMARIES_DIR; // Path to file
 
     // Opening the file
     strcat(path, "/");
     strcat(path, DATASET);
-    strcpy(pathMeans, path);
-    strcat(pathMeans, SUMMARIES_SUFIX_MEANS);
-    strcpy(pathStdev, path);
-    strcat(pathStdev, SUMMARIES_SUFIX_STDEVS);
-    fileMeans = fopen(pathMeans, "w");
-    fileStdevs = fopen(pathStdev, "w");
+    strcat(path, ".csv");
+    file = fopen(path, "w");
 
     // Checking if the file opened correctly
-    if(fileMeans == NULL || fileStdevs == NULL) {
+    if(file == NULL) {
         printf("Could not open the file :(\n");
         return;
     }
 
     // Writing the file
-    for(i = 0; i < CLASSES; i++) {
-        for(j = 0; j < COLUMNS - 1; j++) {
-            printf("%f ", means[i][j]);
-            fprintf(fileMeans, "%f", means[i][j]);
-            fprintf(fileStdevs, "%f", stdevs[i][j]);
-            if(i != CLASSES - 1 || j != COLUMNS - 2) {
-                fprintf(fileMeans, ",");
-                fprintf(fileStdevs, ",");
-            }
-            if(j == COLUMNS - 2 && i < CLASSES - 1) {
-                fprintf(fileMeans, "\n");
-                fprintf(fileStdevs, "\n");
-            }
-        }
-    }
+    writeSummaryToFile(&means[0][0], file);
+    fprintf(file, ",\n");
+    writeSummaryToFile(&stdevs[0][0], file);
 
     // Closing files
-    fclose(fileMeans);
-    fclose(fileStdevs);
-
-    printf("File written successfully!");
+    fclose(file);
 
 }

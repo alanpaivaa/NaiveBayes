@@ -16,8 +16,6 @@
 
 #define DATASET_DIR "datasets"
 #define SUMMARIES_DIR "summaries"
-#define SUMMARIES_SUFIX_MEANS "_means.csv"
-#define SUMMARIES_SUFIX_STDEVS "_stdevs.csv"
 
 /**
  * Pima dataset
