@@ -18,15 +18,10 @@
 
   
 /* Includes ------------------------------------------------------------------*/
-#include<stdio.h>
-#include<stdlib.h>
-#include<time.h>
-#include "defines.h"
-#include "csv.h"
-#include "prediction.h"
-#include "util.h"
-#include "extra.h"
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include "training.h"
 
 /**
   * Main function
@@ -36,22 +31,7 @@ int main(int argc, char *argv[]) {
 
     srand(time(NULL));
 
-    loadPredicionFiles();
-
-
-    /*Calculates Recall and Precision for classes*/
-    calculateMetrics();
-
-    /*Print confusion matrix for the model*/
-    printConfusionMatrix();
-
-    /* Show the metrics for the model*/
-   printMetrics();
-
-    /*Show off the prediction skills*/
-//    showOff(rand()%TEST_LINES);
-
-//    printSummaries();
+    generateTrainingFiles();
 
     return 0;
 }

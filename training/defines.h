@@ -14,8 +14,9 @@
 #define RANDOM_SETS 0       //determine if data is split randmonly (1) or not (0)
 #define PI 3.141592653589793
 
-#define TESTSET_DIR "training/datasets/test"
-#define SUMMARIES_DIR "training/summaries"
+#define DATASET_DIR "datasets"
+#define TESTSET_DIR "datasets/test"
+#define SUMMARIES_DIR "summaries"
 
 
 /*
@@ -47,7 +48,10 @@
 #define TRAINING_LINES ((int) ((LINES * TRAINING_RATIO) + 1))
 #define TEST_LINES (LINES - TRAINING_LINES)
 
-
+/**
+ * trainingSet - Matrix that contains the training data, that will be used to make predictions
+ **/
+float trainingSet[TRAINING_LINES][COLUMNS];
 /**
  * testSet - Holds the data that will be tested after the training
  **/
@@ -61,9 +65,5 @@ float means[CLASSES][COLUMNS - 1];
  **/
 float stdevs[CLASSES][COLUMNS - 1];
 
-/**
- * confusionMatrix - Holds the confusion matrix values for the dataset
- **/
-int confusionMatrix[CLASSES][CLASSES];
 
 #endif //UNTITLED_DEFINES_H
