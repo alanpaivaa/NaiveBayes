@@ -45,3 +45,4 @@ fabric.properties
 .DS_Store
 main
 summaries/*
+datasets/test/*
