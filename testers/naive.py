@@ -108,7 +108,7 @@ def getConfusionMatriz(testSet,predictions):
 
 
 def main():
-	filename = 'pima.csv'
+	filename = 'column.csv'
 	splitRatio = 0.7
 	dataset = loadCsv(filename)
 	trainingSet, testSet = splitDataset(dataset, splitRatio)

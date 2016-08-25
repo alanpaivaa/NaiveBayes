@@ -21,18 +21,18 @@
 /**
  * Pima dataset
  * */
-#define DATASET "pima"
-#define LINES 768
-#define COLUMNS 9
-#define CLASSES 2
+//#define DATASET "pima"
+//#define LINES 768
+//#define COLUMNS 9
+//#define CLASSES 2
 
 /*
  * Column dataset.
  */
-//#define DATASET "column"
-//#define LINES 310
-//#define COLUMNS 7
-//#define CLASSES 2
+#define DATASET "column"
+#define LINES 310
+#define COLUMNS 7
+#define CLASSES 2
 
 /*
  * Iris dataset.
