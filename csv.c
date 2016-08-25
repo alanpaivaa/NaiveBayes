@@ -15,7 +15,7 @@
 void loadFullDatasetFromCsv() {
 
     int c; /* Last read character */
-    char buffer[10]; /* Holds the current character in the file */
+    char buffer[15]; /* Holds the current character in the file */
     char bc = 0; /* Counter for the buffer, for appending new characters each time */
     char path[100] = DATASET_DIR;
     FILE *file; /* File pointer */
@@ -94,6 +94,47 @@ void loadFullDatasetFromCsv() {
 
     // Close the file
     fclose(file);
+}
+
+void loadTestsetFromCsv() {
+
+    int c; /* Last read character */
+    char buffer[15]; /* Holds the current character in the file */
+    char bc = 0; /* Counter for the buffer, for appending new characters each time */
+    char path[30] = TESTSET_DIR;
+    FILE *file; /* File pointer */
+    int count = 0; /* Tells the position of a character in a line */
+
+    // Opening the file
+    strcat(path, "/");
+    strcat(path, DATASET);
+    strcat(path, ".csv");
+    file = fopen(path, "r");
+    if(file == NULL) {
+        printf("Could not open file %s\n", path);
+        return;
+    }
+
+    /* While there's file to read */
+    while((c = fgetc(file)) != EOF) {
+
+        if(c == COMMA_ASCII || c == LINE_FEED_ASCII) { /*A new value is ready to go */
+
+            buffer[bc] = '\0';
+
+            *(&testSet[0][0] + count) = atof(buffer);
+
+            count++;
+            bc = 0;
+
+        } else {
+            buffer[bc++] = c;
+        }
+    }
+
+    // Close the file
+    fclose(file);
+
 }
 
 /**
@@ -178,7 +219,7 @@ void loadSummariesFromCsv() {
     FILE *file; // Pointers to the files
     char path[30] = SUMMARIES_DIR; // Path to file
     int c; /* Last read character */
-    char buffer[10]; /* Holds the current character in the file */
+    char buffer[15]; /* Holds the current character in the file */
     char bc = 0; /* Counter for the buffer, for appending new characters each time */
     int count = 0; /* Number of characters found */
     int offset = CLASSES * (COLUMNS - 1);

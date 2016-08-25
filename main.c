@@ -36,8 +36,12 @@ int main(int argc, char *argv[]) {
 
 
     srand(time(NULL));
+
     generateTrainingFiles();
     printf("\nSplit %d rows into train=%d and test=%d rows\n", LINES, TRAINING_LINES, TEST_LINES);
+
+//    loadPredicionFiles();
+//    printTestset();
 
 
     /*Calculates Recall and Precision for classes*/
@@ -50,10 +54,10 @@ int main(int argc, char *argv[]) {
     printMetrics();
 
     /*Show off the prediction skills*/
-    showOff(rand()%TEST_LINES);
+//    showOff(rand()%TEST_LINES);
 
-//    loadSummariesFromCsv();
-    printSummaries();
+    loadSummariesFromCsv();
+//    printSummaries();
 
     return 0;
 }

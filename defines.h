@@ -11,7 +11,7 @@
 #define COMMA_ASCII 44
 #define LINE_FEED_ASCII 10
 #define TRAINING_RATIO 0.7  //determine the split ratio
-#define RANDOM_SETS 0       //determine if data is split randmonly (1) or not (0)
+#define RANDOM_SETS 1       //determine if data is split randmonly (1) or not (0)
 #define PI 3.141592653589793
 
 #define DATASET_DIR "datasets"
@@ -29,10 +29,10 @@
 /*
  * Column dataset.
  */
-#define DATASET "column"
-#define LINES 310
-#define COLUMNS 7
-#define CLASSES 2
+//#define DATASET "column"
+//#define LINES 310
+//#define COLUMNS 7
+//#define CLASSES 2
 
 /*
  * Iris dataset.
@@ -45,10 +45,10 @@
 /*
  * Wine dataset.
  */
-//#define DATASET "wine"
-//#define LINES 178
-//#define COLUMNS 14
-//#define CLASSES 3
+#define DATASET "wine"
+#define LINES 178
+#define COLUMNS 14
+#define CLASSES 3
 
 
 

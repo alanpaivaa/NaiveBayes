@@ -6,8 +6,9 @@
 #define UNTITLED_CSV_H
 
 void loadFullDatasetFromCsv();
-void writeTestsetToCsv();
 void loadSummariesFromCsv();
+void loadTestsetFromCsv();
+void writeTestsetToCsv();
 void writeSummariesToCsv();
 
 #endif //UNTITLED_CSV_H

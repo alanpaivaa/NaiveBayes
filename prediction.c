@@ -13,6 +13,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "defines.h"
 #include "math.h"
+#include "csv.h"
 
 
 /**
@@ -177,4 +178,10 @@ float getPrecision(int class)
 
 }
 
-
+/**
+ * @brief Loads the testset and summaries files to the arrays.
+ * */
+void loadPredicionFiles() {
+    loadTestsetFromCsv();
+    loadSummariesFromCsv();
+}
