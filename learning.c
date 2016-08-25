@@ -11,11 +11,8 @@
 
 
 /* Includes ------------------------------------------------------------------*/
-#include <stdio.h>
 #include "defines.h"
 #include "math.h"
-#include "csv.h"
-#include "util.h"
 
 /**
  * @brief Calculates the mean/avarage of a column of attributes considering they belong to a certain class
@@ -198,7 +195,6 @@ void calculateMetrics()
     for(i = 0; i < TEST_LINES; i++) {
         prediction = predict(testSet[i]); /*  Gets the prediction for a given test set line */
         confusionMatrix[(int)testSet[i][COLUMNS-1]][prediction]++;
-
     }
 
 }

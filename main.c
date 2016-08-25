@@ -38,6 +38,7 @@ int main(int argc, char *argv[]) {
 
     /* Load up data and fill in the datasets in memory*/
     loadCsv();
+
     printf("\nSplit %d rows into train=%d and test=%d rows\n", LINES, TRAINING_LINES, TEST_LINES);
 
     /* Sumarize data*/
@@ -45,22 +46,21 @@ int main(int argc, char *argv[]) {
 //    printSummaries();
 //    writeSummariesCsv();
 
-//
-//    /*Calculates Recall and Precision for classes*/
+
+    /*Calculates Recall and Precision for classes*/
     calculateMetrics();
-//
-//    /*Print confusion matrix for the model*/
+
+    /*Print confusion matrix for the model*/
     printConfusionMatrix();
-//
-//    /* Show the metrics for the model*/
+
+    /* Show the metrics for the model*/
     printMetrics();
-//
-//    /*Show off the prediction skills*/
+
+    /*Show off the prediction skills*/
     showOff(rand()%TEST_LINES);
 
 //    loadSummariesFromCsv();
 //    printSummaries();
-
 
     return 0;
 }

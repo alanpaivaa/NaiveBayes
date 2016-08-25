@@ -99,19 +99,45 @@ void loadCsv() {
 /**
  * @brief Writes the given summary array to a file.
  * */
-void writeSummaryToFile(float *vector, FILE *file) {
+void writeMatrixToFile(float *vector, FILE *file, int lines, int columns) {
 
     int i;
 
-    for(i = 0; i < CLASSES * (COLUMNS - 1); i++) {
+    for(i = 0; i < lines * columns; i++) {
         fprintf(file, "%f", *(vector + i));
-        if((i % (COLUMNS - 1)) < COLUMNS - 2) {
+        if((i % columns) < columns - 1) {
             fprintf(file, ",");
         }
-        if((i % (COLUMNS - 1)) == COLUMNS - 2) {
+        else {
             fprintf(file, "\n");
         }
     }
+
+}
+
+/**
+ * @brief Writes the testset to a csv file.
+ * */
+void writeTestsetToCsv() {
+
+    FILE *file; // Pointer to the files
+    char path[30] = TESTSET_DIR; // Path to file
+
+    // Opening the file
+    strcat(path, "/");
+    strcat(path, DATASET);
+    strcat(path, ".csv");
+    file = fopen(path, "w");
+
+    // Checking if the file opened correctly
+    if(file == NULL) {
+        printf("Could not open the file :(\n");
+        return;
+    }
+
+    writeMatrixToFile(&testSet[0][0], file, TEST_LINES, COLUMNS);
+
+    fclose(file);
 
 }
 
@@ -136,8 +162,8 @@ void writeSummariesCsv() {
     }
 
     // Writing the file
-    writeSummaryToFile(&means[0][0], file);
-    writeSummaryToFile(&stdevs[0][0], file);
+    writeMatrixToFile(&means[0][0], file, CLASSES, COLUMNS - 1);
+    writeMatrixToFile(&stdevs[0][0], file, CLASSES, COLUMNS - 1);
 
     // Closing files
     fclose(file);

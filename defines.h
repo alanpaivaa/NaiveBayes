@@ -15,6 +15,7 @@
 #define PI 3.141592653589793
 
 #define DATASET_DIR "datasets"
+#define TESTSET_DIR "datasets/test"
 #define SUMMARIES_DIR "summaries"
 
 /**
