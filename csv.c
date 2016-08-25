@@ -1,13 +1,11 @@
 /**
   ******************************************************************************
-  * @file    csv.c
+  * @file    csv.h
   * @author  Alan Jeferson and Levi Moreira
   * @version V1.1.0
   * @date    25-August-2016
-  * @brief   This file contains functions related to work on a test data set.
-  * @note    To run the functions on this file you first provide a training data set
-  * to calculate the means and the standard deviations. Then you come back to this file
-  * to get the predicions, recall and precision runnning properly.
+  * @brief   This file contains functions related to writing and load to and from
+  * CSV files.
   ******************************************************************************
 */
 
@@ -20,6 +18,11 @@
 /**
  * @brief Loads the values from a CSV file into the training and data sets according to the
  * training ratio.
+ *
+ * Loads a CSV file located in datasets/DATASET, parses the file into float numbers and
+ * saves them to the testset and trainingset matrixes. If RANDOM_SET equals to 0, the first TRAINING_LINES
+ * of the CSV file will be places into the trainingset matrix and the remaining lines will be placed on the
+ * testset matrix. Otherwise, the lines will be chosen randomly.
  * */
 void loadFullDatasetFromCsv() {
 
