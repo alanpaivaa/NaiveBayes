@@ -21,7 +21,7 @@ float calculateMean(int classNumber, int columnNumber)
 
     /* holds the sum of the values used in the calculation */
     float values = 0;
-
+”
     /* Calculate the mean only for the training data, the first 70% values of the dataset */
     for(i = 0; i < TRAINING_LINES; i++)
     {
