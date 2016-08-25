@@ -28,8 +28,19 @@
 */
 float calculateProbability(float x, float mean, float stdev)
 {
-    float exponent = exp(-(pow(x-mean,2)/(2*pow(stdev,2))));
-    return (1 / (sqrt(2*PI) * stdev)) * exponent;
+    double exponent = exp(-(pow(x-mean,2)/(2*pow(stdev,2))));
+    
+    double res = (1 / (sqrt(2*PI) * stdev)) * exponent;
+    if(res == 0.0)
+    {
+    // printf("%2.6f\n",res);
+     return 0.0;
+    }
+    else
+    {
+      //printf("%2.6f\n",res);
+      return log(res);
+    }
 }
 
 
@@ -41,12 +52,12 @@ float calculateProbability(float x, float mean, float stdev)
 float calculateClassProbability(int classNumber, float *inputVector)
 {
     int i;
-    float classProbability = 1;
+    float classProbability = 0;
     /*  for each feature, calculate the probability and multiply them together */
     for(i = 0; i<COLUMNS-1; i++)
     {
         /*  considering the Bayes criterion, the total probability is the product of each single probability */
-        classProbability*=calculateProbability(inputVector[i], means[classNumber][i], stdevs[classNumber][i] );
+        classProbability+=calculateProbability(inputVector[i], means[classNumber][i], stdevs[classNumber][i] );
     }
 
     return classProbability;
@@ -74,12 +85,14 @@ int predict(float *inputVector) {
 
     for(i = 0; i < CLASSES; i++) {
         classProb = calculateClassProbability(i, inputVector); /*  Calculating the probability for the current class on the loop */
-        if(classProb > bestProb) { /*  Checking if the new class' probability is higher than the highest known probability */
+	
+	if((bestLabel==-1) || (classProb > bestProb)) { /*  Checking if the new class' probability is higher than the highest known probability */
             bestProb = classProb;
-            bestLabel = i;
+            bestLabel = i;  
         }
     }
-
+  
+        
     return bestLabel;
 
 }
@@ -131,6 +144,7 @@ float getAccuracy() {
 
     for(i = 0; i < TEST_LINES; i++) {
         prediction = predict(testSet[i]); /*  Gets the prediction for a given test set line */
+	
         if(prediction == (int) testSet[i][COLUMNS - 1]) { /*  Checks if the prediction hits */
             correct++;
         }

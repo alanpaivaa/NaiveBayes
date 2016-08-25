@@ -37,23 +37,6 @@ void printMetrics()
 
 
 /**
- * @brief Prints to the console the training dataset.
- * */
-void printTrainingSet() {
-    int i, j;
-    for (i = 0; i < TRAINING_LINES; i++) {
-        for (j = 0; j < COLUMNS; j++) {
-            printf("%f", trainingSet[i][j]);
-            if(j < COLUMNS - 1) {
-                printf(", ");
-            }
-        }
-        printf("\n");
-    }
-}
-
-
-/**
  * @brief Prints to the console the test dataset.
  * */
 void printTestset() {

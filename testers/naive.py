@@ -55,16 +55,24 @@ def summarizeByClass(dataset):
 
 def calculateProbability(x, mean, stdev):
 	exponent = math.exp(-(math.pow(x-mean,2)/(2*math.pow(stdev,2))))
-	return (1 / (math.sqrt(2*math.pi) * stdev)) * exponent
+	res = ((1 / (math.sqrt(2*math.pi) * stdev)) * exponent)
+
+	if(res==0):
+		#print res
+		return 0
+	else:
+		#print math.log(res)
+		return math.log(res)
 
 def calculateClassProbabilities(summaries, inputVector):
 	probabilities = {}
 	for classValue, classSummaries in summaries.iteritems():
-		probabilities[classValue] = 1
+		probabilities[classValue] = 0
 		for i in range(len(classSummaries)):
 			mean, stdev = classSummaries[i]
 			x = inputVector[i]
-			probabilities[classValue] *= calculateProbability(x, mean, stdev)
+			probabilities[classValue] += calculateProbability(x, mean, stdev)
+		print probabilities[classValue]
 	return probabilities
 
 def predict(summaries, inputVector):
@@ -99,7 +107,7 @@ def printSummaries(summaries):
 		print "\n"
 
 def getConfusionMatriz(testSet,predictions):
-	confusionM = numpy.zeros(shape=(3,3))
+	confusionM = numpy.zeros(shape=(10,10))
 	for i in range(len(testSet)):
 		predicted = int(predictions[i])
 		correct = int(testSet[i][-1])
@@ -108,8 +116,8 @@ def getConfusionMatriz(testSet,predictions):
 
 
 def main():
-	filename = 'wine.csv'
-	splitRatio = 0.7
+	filename = 'libras.csv'
+	splitRatio = 0.8
 	dataset = loadCsv(filename)
 	trainingSet, testSet = splitDataset(dataset, splitRatio)
 	# for t in trainingSet:
@@ -123,7 +131,9 @@ def main():
 	accuracy = getAccuracy(testSet, predictions)
 	print('Accuracy: {0}%').format(accuracy)
 
-	print getConfusionMatriz(testSet,predictions)
+	#printSummaries(summaries)
 
+	#print getConfusionMatriz(testSet,predictions)
+	#print summaries[0]
 
 main()

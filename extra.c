@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "defines.h"
 #include "csv.h"
-#include "training.h"
 #include "prediction.h"
 #include "util.h"
 
@@ -40,8 +39,8 @@ float getCrossAccuracy(int fold)
     for(i = 0; i<fold; i++)
     {
         // srand(time(0)+i*123);
-        loadFullDatasetFromCsv();
-        calculateSummaries();
+       // loadFullDatasetFromCsv();
+       // calculateSummaries();
         currentAccuracy = getAccuracy();
         printf("%2.2f\n",currentAccuracy);
         cumulativeAccuracy+=currentAccuracy;

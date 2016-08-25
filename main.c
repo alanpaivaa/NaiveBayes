@@ -23,7 +23,6 @@
 #include<time.h>
 #include "defines.h"
 #include "csv.h"
-#include "training.h"
 #include "prediction.h"
 #include "util.h"
 #include "extra.h"
@@ -37,11 +36,7 @@ int main(int argc, char *argv[]) {
 
     srand(time(NULL));
 
-    generateTrainingFiles();
-    printf("\nSplit %d rows into train=%d and test=%d rows\n", LINES, TRAINING_LINES, TEST_LINES);
-
-//    loadPredicionFiles();
-//    printTestset();
+    loadPredicionFiles();
 
 
     /*Calculates Recall and Precision for classes*/
@@ -51,13 +46,12 @@ int main(int argc, char *argv[]) {
     printConfusionMatrix();
 
     /* Show the metrics for the model*/
-    printMetrics();
+   printMetrics();
 
     /*Show off the prediction skills*/
 //    showOff(rand()%TEST_LINES);
 
-    loadSummariesFromCsv();
-//    printSummaries();
+    printSummaries();
 
     return 0;
 }
