@@ -3,5 +3,5 @@ project(untitled)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.c csv.h csv.c defines.h learning.h learning.c util.c util.h extra.h extra.c)
+set(SOURCE_FILES main.c csv.h csv.c defines.h util.c util.h extra.h extra.c training.h training.c prediction.h prediction.c)
 add_executable(untitled ${SOURCE_FILES})

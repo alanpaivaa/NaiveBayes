@@ -23,7 +23,8 @@
 #include<time.h>
 #include "defines.h"
 #include "csv.h"
-#include "learning.h"
+#include "training.h"
+#include "prediction.h"
 #include "util.h"
 #include "extra.h"
 

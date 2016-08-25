@@ -8,15 +8,11 @@
   *          functions used throughout the project.
   *
   ******************************************************************************
-  */
+*/
 
-#ifndef __LEARNING_H
-#define __LEARNING_H
-/* Exported functions --------------------------------------------------------*/
+#ifndef UNTITLED_PREDICTION_H
+#define UNTITLED_PREDICTION_H
 
-float calculateMean(int classNumber, int columnNumber);
-float calculateStdev(int classNumber, int columnNumber, float mean);
-void  calculateSummaries();
 float calculateProbability(float x, float mean, float stdev);
 float calculateClassProbability(int classNumber, float *inputVector);
 int   predict(float *inputVector);
@@ -25,4 +21,4 @@ float getPrecision(int class);
 float getRecall(int class);
 void  calculateMetrics();
 
-#endif /* __UTIL_H */
+#endif //UNTITLED_PREDICTION_H
