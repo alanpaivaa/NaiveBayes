@@ -4,6 +4,7 @@
 
 #include<math.h>
 #include "defines.h"
+#include "csv.h"
 
 /**
  * @brief Calculates the mean/avarage of a column of attributes considering they belong to a certain class
@@ -89,5 +90,15 @@ void calculateSummaries()
         }
 
     }
+}
+
+/**
+ * @brief Loads an entire dataset, processes the summaries and writes the testset and summaries files.
+ * */
+void generateTrainingFiles() {
+    loadFullDatasetFromCsv(); /* Loading an entire dataset */
+    writeTestsetToCsv(); /* Writing the test set to a csv file */
+    calculateSummaries(); /* Calculating the summaries */
+    writeSummariesToCsv(); /* Writing the summaries to a csv file */
 }
 

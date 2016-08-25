@@ -12,7 +12,7 @@
  * @brief Loads the values from a CSV file into the training and data sets according to the
  * training ratio.
  * */
-void loadCsv() {
+void loadFullDatasetFromCsv() {
 
     int c; /* Last read character */
     char buffer[10]; /* Holds the current character in the file */
@@ -144,7 +144,7 @@ void writeTestsetToCsv() {
 /**
  * @brief Writes both stdev and means matrixes to a file.
  * */
-void writeSummariesCsv() {
+void writeSummariesToCsv() {
 
     FILE *file; // Pointers to the files
     char path[30] = SUMMARIES_DIR; // Path to file

@@ -40,7 +40,7 @@ float getCrossAccuracy(int fold)
     for(i = 0; i<fold; i++)
     {
         // srand(time(0)+i*123);
-        loadCsv();
+        loadFullDatasetFromCsv();
         calculateSummaries();
         currentAccuracy = getAccuracy();
         printf("%2.2f\n",currentAccuracy);

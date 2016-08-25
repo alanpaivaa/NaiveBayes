@@ -36,16 +36,8 @@ int main(int argc, char *argv[]) {
 
 
     srand(time(NULL));
-
-    /* Load up data and fill in the datasets in memory*/
-    loadCsv();
-
+    generateTrainingFiles();
     printf("\nSplit %d rows into train=%d and test=%d rows\n", LINES, TRAINING_LINES, TEST_LINES);
-
-    /* Sumarize data*/
-    calculateSummaries();
-//    printSummaries();
-//    writeSummariesCsv();
 
 
     /*Calculates Recall and Precision for classes*/
@@ -61,7 +53,7 @@ int main(int argc, char *argv[]) {
     showOff(rand()%TEST_LINES);
 
 //    loadSummariesFromCsv();
-//    printSummaries();
+    printSummaries();
 
     return 0;
 }

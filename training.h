@@ -8,5 +8,6 @@
 float calculateMean(int classNumber, int columnNumber);
 float calculateStdev(int classNumber, int columnNumber, float mean);
 void  calculateSummaries();
+void  generateTrainingFiles();
 
 #endif //UNTITLED_TRAINING_H
