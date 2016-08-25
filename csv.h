@@ -6,6 +6,9 @@
 #define UNTITLED_CSV_H
 
 void loadCsv();
-void writeCsv();
+
+// Csv
+void loadSummariesFromCsv();
+void writeSummariesCsv();
 
 #endif //UNTITLED_CSV_H

@@ -42,21 +42,24 @@ int main(int argc, char *argv[]) {
 
     /* Sumarize data*/
     calculateSummaries();
+//    printSummaries();
+//    writeSummariesCsv();
 
 //
 //    /*Calculates Recall and Precision for classes*/
-//    calculateMetrics();
+    calculateMetrics();
 //
 //    /*Print confusion matrix for the model*/
-//    printConfusionMatrix();
+    printConfusionMatrix();
 //
 //    /* Show the metrics for the model*/
-//    printMetrics();
+    printMetrics();
 //
 //    /*Show off the prediction skills*/
-//    showOff(rand()%TEST_LINES);
+    showOff(rand()%TEST_LINES);
 
-    writeCsv();
+//    loadSummariesFromCsv();
+//    printSummaries();
 
 
     return 0;
