@@ -1,6 +1,15 @@
-//
-// Created by Alan Jeferson on 24/08/16.
-//
+/**
+  ******************************************************************************
+  * @file    csv.c
+  * @author  Alan Jeferson and Levi Moreira
+  * @version V1.1.0
+  * @date    25-August-2016
+  * @brief   This file contains functions related to work on a test data set.
+  * @note    To run the functions on this file you first provide a training data set
+  * to calculate the means and the standard deviations. Then you come back to this file
+  * to get the predicions, recall and precision runnning properly.
+  ******************************************************************************
+*/
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -96,6 +105,14 @@ void loadFullDatasetFromCsv() {
     fclose(file);
 }
 
+
+/**
+ * @brief Loads the test dataset from a CSV file.
+ *
+ * Loads a CSV file located in test/DATASET, parses its values and saves them
+ * into the testset matrix.
+ * @see testset
+ * */
 void loadTestsetFromCsv() {
 
     int c; /* Last read character */
@@ -139,6 +156,12 @@ void loadTestsetFromCsv() {
 
 /**
  * @brief Writes the given summary array to a file.
+ *
+ * Writes the given matrix to a file.
+ * @param lines - The number of lines of the matrix.
+ * @param columns - The number of columns of the matrix.
+ * @param vector - A pointer to the begin of the matrix.
+ * @param file - A pointer to the file in which the matrix will be written.
  * */
 void writeMatrixToFile(float *vector, FILE *file, int lines, int columns) {
 
@@ -158,6 +181,9 @@ void writeMatrixToFile(float *vector, FILE *file, int lines, int columns) {
 
 /**
  * @brief Writes the testset to a csv file.
+ *
+ * Iterates over the testset matrix and saves each value to a CSV file located in
+ * test/DATASET.csv where DATASET refers to the current dataset name.
  * */
 void writeTestsetToCsv() {
 
@@ -213,6 +239,11 @@ void writeSummariesToCsv() {
 
 /**
  * @brief Loads a CSV file into the summaries (means and stdevs) arrays.
+ *
+ * Searchs for a CSV file into the directory summaries matching the DATASET.
+ * If DATASET equals pima, the CSV file that file summaries/pima.csv will be searched.
+ * It throws an error if the file is not found. This file must contain n lines of attributes, where
+ * the first n/2 lines represents the means and the remaining n/2 lines represents the standard deviations.
  * */
 void loadSummariesFromCsv() {
 

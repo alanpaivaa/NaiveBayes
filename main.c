@@ -12,9 +12,8 @@
   *  1) Compile gcc main.c learning.c util.c -o main -lm
   *  2) Run ./main
   * This program should only be used with numerical datasets of integer/float numbers
-  *
   ******************************************************************************
-  */
+*/
 
   
 /* Includes ------------------------------------------------------------------*/

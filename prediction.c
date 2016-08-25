@@ -1,15 +1,17 @@
 /**
   ******************************************************************************
-  * @file    learning.c
+  * @file    prediction.c
   * @author  Alan Jeferson and Levi Moreira
-  * @version V1.0
-  * @date    23-August-2016
-  * @brief   This file provides all the machine learning functions implementations
-  *
+  * @version V1.1.0
+  * @date    25-August-2016
+  * @brief   This file contains functions related to work on a test data set.
+  * @note To run the functions on this file you first provide a training data set
+  * to calculate the means and the standard deviations. Then you come back to this file
+  * to get the predicions, recall and precision runnning properly. This file has functions to
+  * predict a class of given set of attributes, to calculate de accuracy
+  * of the training dataset given a test data set, calculate de recall etc.
   ******************************************************************************
-  */
-
-
+*/
 /* Includes ------------------------------------------------------------------*/
 #include "defines.h"
 #include "math.h"
