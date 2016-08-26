@@ -160,8 +160,9 @@ float getAccuracy() {
 /**
  * @brief Analyzes the Confusion Matrix outputed by the model and calculates the recall.
  * @note The recall, or sensibility reveals the capability of the model to correclty predict a class in the cases
- * in which a data entry belongs to that class.
- * @return The true positives over the sum of true positves and false negatives
+ * in which a data entry belongs to that class. Can the model identify when an instance belongs to a class?
+ * @return The true positives over the sum of true positves and false negatives. For a multiclass problem the recall of a class i
+ * will be M[i][i]/sumof elements of line i. M is the confusion matrix for the model.
  * */
 float getRecall(int class)
 {
@@ -178,8 +179,9 @@ float getRecall(int class)
 /**
  * @brief Analyzes the Confusion Matrix outputed by the model and calculates the precision.
  * @note The precision reveals the capability of the model to correclty predict a class in the cases
- * in which a data entry doesn't belong to that class.
- * @return The true negatives over the sum of true negatives and false positives
+ * in which a data entry doesn't belong to that class. Can the model identify when an instance does NOT belong to a class?
+ * @return The true negatives over the sum of true negatives and false positives. For a multiclass problem the precision of a class i
+ * will be M[i][i]/sumof elements of column i. M is the confusion matrix for the model.
  * */
 float getPrecision(int class) {
     int i;
