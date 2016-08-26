@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
     /*Show off the prediction skills*/
     showOff(rand()%TEST_LINES);
 
-    printSummaries();
+    //printSummaries();
 
     return 0;
 }

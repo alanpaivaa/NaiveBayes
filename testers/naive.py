@@ -72,7 +72,7 @@ def calculateClassProbabilities(summaries, inputVector):
 			mean, stdev = classSummaries[i]
 			x = inputVector[i]
 			probabilities[classValue] += calculateProbability(x, mean, stdev)
-		print probabilities[classValue]
+		#print probabilities[classValue]
 	return probabilities
 
 def predict(summaries, inputVector):
@@ -116,7 +116,7 @@ def getConfusionMatriz(testSet,predictions):
 
 
 def main():
-	filename = 'libras.csv'
+	filename = 'urbanland.csv'
 	splitRatio = 0.8
 	dataset = loadCsv(filename)
 	trainingSet, testSet = splitDataset(dataset, splitRatio)
