@@ -4,7 +4,7 @@
  * @version V1.0
  * @date    25-August-2016
  * @brief   This file contains all the global variables that are used on the entire program,
- * in both training and predictions modules.
+ *          in both training and predictions modules.
  * */
 
 #ifndef UNTITLED_DEFINES_H

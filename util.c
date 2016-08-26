@@ -1,19 +1,15 @@
 /**
-  ******************************************************************************
-  * @file    util.c
-  * @author  Alan Jeferson and Levi Moreira
-  * @version V1.0
-  * @date    23-August-2016
-  * @brief   This file provides all the utilities functions implementations
-  *
-  ******************************************************************************
-  */
+ * @file    util.c
+ * @author  Alan Jeferson and Levi Moreira
+ * @version V1.1.0
+ * @date    25-August-2016
+ * @brief   This file contains the implementations for the
+ *          auxiliar functions, i.e. print functions.
+ * */
 
-/* Includes ------------------------------------------------------------------*/
 #include <stdio.h>
 #include "util.h"
 #include "defines.h"
-//#include "prediction/prediction.h"
 
 
 /**
@@ -33,7 +29,7 @@ void printTestset() {
 }
 
 /**
- *@brief Prints the summaries to the console
+ * @brief Prints the summaries to the console.
  * */
 void printSummaries() {
 
@@ -50,8 +46,8 @@ void printSummaries() {
 
 
 /**
-*@brief Prints the confusion matrix of the model
-*/
+ * @brief Prints the confusion matrix of the model.
+ * */
 void printConfusionMatrix()
 {
     printf("------------------Confusion Matrix for the Model------------------\n");
@@ -66,8 +62,8 @@ void printConfusionMatrix()
 }
 
 /**
-* @brief Prints a given line from the test set
-* @param The line index to be printed
+* @brief Prints a given line from the test set.
+* @param The line index to be printed.
 **/
 void printTestSetLine(int line)
 {
