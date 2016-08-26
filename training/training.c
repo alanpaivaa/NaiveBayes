@@ -1,17 +1,23 @@
-//
-// Created by Alan Jeferson on 24/08/16.
-//
-#include<stdio.h>
+/**
+ * @file    training/training.c
+ * @author  Alan Jeferson and Levi Moreira
+ * @version V1.1.0
+ * @date    25-August-2016
+ * @brief   This file contains functions for training based on a previously loaded
+ *          dataset. These functions write to the means and stdev matrixes,
+ *          that will be later used to make predictions, test accuracy etc.
+ * */
+
+
 #include<math.h>
 #include "../defines.h"
-#include "csv.h"
-#include "../util.h"
+
 
 /**
- * @brief Calculates the mean/avarage of a column of attributes considering they belong to a certain class
- * @param int classNumber - The number of the class to be considered
- * @param int columnNumber - The column of attributes about which the mean will be calculated
- * @return Returns a float with the average of the values of the column considering the class number
+ * @brief Calculates the mean/average of a column of attributes considering they belong to a certain class.
+ * @param[in] int classNumber The number of the class to be considered.
+ * @param[in] int columnNumber The column of attributes about which the mean will be calculated.
+ * @returns A float with the average of the values of the column considering the class number.
 */
 float calculateMean(int classNumber, int columnNumber)
 {
@@ -42,9 +48,10 @@ float calculateMean(int classNumber, int columnNumber)
 
 /**
  * @brief Calculates the standard deviation of a column that belongs to a class.
- * @param classNumber - The number of the class to make the calculation.
- * @param columnNumber - The column that indicates which attribute will be considered.
- * @param mean - The mean for the same class and column numbers above.
+ * @param[in] int classNumber The number of the class to make the calculation.
+ * @param[in] int columnNumber The column that indicates which attribute will be considered.
+ * @param[in] float mean The mean for the same class and column numbers above.
+ * @returns A float indicating the standard deviation for the given class and column number.
  * */
 float calculateStdev(int classNumber, int columnNumber, float mean) {
 
@@ -73,10 +80,11 @@ float calculateStdev(int classNumber, int columnNumber, float mean) {
 
 
 /**
- * @brief Calculates the summaries of the data and saves them to the correct arrays
- * @note The second part fo the Naive Bayes algorithm is to summarize the dataset.
- * The summaries are the means and standard deviations of the data separated by class
- * Two subarrays are used to hold the summaries, their sizes are NUMBER_OF_CLASSES*NUMBER_OF_FEATURES
+ * @brief Calculates the summaries of the data and saves them to the correct arrays.
+ *
+ * The second part fo the Naive Bayes algorithm is to summarize the dataset.
+ * The summaries are the means and standard deviations of the data separated by class.
+ * Two subarrays are used to hold the summaries, their sizes are NUMBER_OF_CLASSES * NUMBER_OF_FEATURES.
  * Therefore the first line of the arrays contain the summaries for the first class and so on and so forth
 */
 void calculateSummaries()

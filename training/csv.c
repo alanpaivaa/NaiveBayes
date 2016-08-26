@@ -1,6 +1,11 @@
-//
-// Created by Alan Jeferson on 24/08/16.
-//
+/**
+ * @file    training/csv.c
+ * @author  Alan Jeferson and Levi Moreira
+ * @version V1.1.0
+ * @date    25-August-2016
+ * @brief   This file contains functions for handling CSV files,
+ *          i.e. loading and writing from an to files.
+ * */
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -11,6 +16,10 @@
 /**
  * @brief Loads the values from a CSV file into the training and data sets according to the
  * training ratio.
+ *
+ * Loads the CSV file located in ../datasets/full/DATASET.csv. This is a full dataset, therefore
+ * it is necessary to split this data set into test and training data set. This function makes this
+ * splitting and saves the values read from the CSV file in the proper matrixes (testSet and trainingSet).
  * */
 void loadFullDatasetFromCsv() {
 
@@ -99,6 +108,12 @@ void loadFullDatasetFromCsv() {
 
 /**
  * @brief Writes the given summary array to a file.
+ *
+ * Write and matrix with the given lines and columns in a file pointed by the given pointer.
+ * @param[out] vector The matrix whose values will be written on the file.
+ * @param[out] file The pointer to file where the data will be written.
+ * @param[in] lines The number of lines in the matrix.
+ * @param[in] columns The number of columns in the matrix.
  * */
 void writeMatrixToFile(float *vector, FILE *file, int lines, int columns) {
 
@@ -115,6 +130,7 @@ void writeMatrixToFile(float *vector, FILE *file, int lines, int columns) {
     }
 
 }
+
 
 /**
  * @brief Writes the testset to a csv file.
@@ -141,6 +157,7 @@ void writeTestsetToCsv() {
     fclose(file);
 
 }
+
 
 /**
  * @brief Writes both stdev and means matrixes to a file.
