@@ -32,6 +32,8 @@ int main(int argc, char *argv[]) {
 
     srand(time(NULL));
 
+    printf("\nRunning Naive Bayes in Dataset: %s\n\n", DATASET);
+
     /* Loading the test set */
     loadTestsetFromCsv();
 
