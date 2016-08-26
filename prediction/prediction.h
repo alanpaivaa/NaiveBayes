@@ -1,14 +1,11 @@
 /**
-  ******************************************************************************
-  * @file    learning.h
-  * @author  Alan Jeferson and Levi Moreira
-  * @version V1.0
-  * @date    23-August-2016
-  * @brief   This file contains all the functions prototypes for the learning
-  *          functions used throughout the project.
-  *
-  ******************************************************************************
-*/
+ * @file    prediction/prediction.h
+ * @author  Alan Jeferson and Levi Moreira
+ * @version V1.0
+ * @date    23-August-2016
+ * @brief   This file contains the prototypes for the
+ *          functions contained in prediction/prediction.c.
+ * */
 
 #ifndef UNTITLED_PREDICTION_H
 #define UNTITLED_PREDICTION_H

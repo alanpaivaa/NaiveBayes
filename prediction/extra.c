@@ -1,13 +1,21 @@
+/**
+ * @file    prediction/extra.c
+ * @author  Alan Jeferson and Levi Moreira
+ * @version V1.1.0
+ * @date    25-August-2016
+ * @brief   This file contains some extra functions related to
+ *          predicting classes, accuracy etc.
+ * */
+
 #include <stdio.h>
 #include "../defines.h"
-#include "csv.h"
 #include "prediction.h"
 #include "../util.h"
 
 /**
-* @brief Shows off the skill of the classifier by predicting the class of a certain entry
-* @param the line of the test set to be predicted
-**/
+ * @brief Shows off the skill of the classifier by predicting the class of a certain entry.
+ * @param testLine The line of the test set to be predicted.
+ * */
 void showOff(int testLine)
 {
     printf("\n---------------------------Prediction Demonstration----------------------");
@@ -30,7 +38,7 @@ void showOff(int testLine)
  * @brief Calculates the k-fold cross Accuracy for the whole dataset. This function is used for test purposes only.
  * @param The size of the fold (normally 10)
  * @return The mean accuracy for the fold
-*/
+ * */
 float getCrossAccuracy(int fold)
 {
     int i;

@@ -1,16 +1,13 @@
 /**
-  ******************************************************************************
-  * @file    learning.c
-  * @author  Alan Jeferson and Levi Moreira
-  * @version V1.0
-  * @date    23-August-2016
-  * @brief   This file provides all the machine learning functions implementations
-  *
-  ******************************************************************************
-  */
+ * @file    prediction/prediction.c
+ * @author  Alan Jeferson and Levi Moreira
+ * @version V1.0
+ * @date    23-August-2016
+ * @brief   This file contains functions that execute predictions, test accuracy etc
+ *          on the knowledge (summaries) with the test data set.
+ * */
 
 
-/* Includes ------------------------------------------------------------------*/
 #include<stdio.h>
 #include "../defines.h"
 #include "math.h"
@@ -19,13 +16,13 @@
 /**
  * @brief Calculates the probability of a given number belonging to a distribution based on the gaussian:
  * @note p = 1/(sqrt(2*PI*stdev)) * e^-(((x- mean)^2)/(2*(stdev^2)))
- * Where stdev is the standard deviation of the column and class to which x belongs to
- * Where mean is the mean of the column and class to which x belongs to
- * @param float x - the input value to be evaluated by the formula
- * @param float mean - the mean value of the column and class to which x belongs to
- * @param float stdev - the standard deviation of the column and class to which x belongs to
- * @return return the likelihood (in probability domain) of x belonging to the distribution represented by mean and stdev
-*/
+ * Where stdev is the standard deviation of the column and class to which x belongs to.
+ * Where mean is the mean of the column and class to which x belongs to.
+ * @param[in] float x The input value to be evaluated by the formula.
+ * @param[in] float mean The mean value of the column and class to which x belongs to.
+ * @param[in] float stdev The standard deviation of the column and class to which x belongs to.
+ * @returns The likelihood (in probability domain) of x belonging to the distribution represented by mean and stdev.
+ * */
 float calculateProbability(float x, float mean, float stdev)
 {
     double exponent = exp(-(pow(x-mean,2)/(2*pow(stdev,2))));
@@ -43,10 +40,10 @@ float calculateProbability(float x, float mean, float stdev)
 
 
 /**
- * @brief Calculates the total probability of a certain class based on single probabilities yielded by each feature
- * @param int classNumber - The class to be considered
- * @return the cumulative probability of that class
-*/
+ * @brief Calculates the total probability of a certain class based on single probabilities yielded by each feature.
+ * @param[in] int classNumber The class to be considered
+ * @returns the cumulative probability of that class
+ * */
 float calculateClassProbability(int classNumber, float *inputVector)
 {
     int i;
@@ -64,9 +61,15 @@ float calculateClassProbability(int classNumber, float *inputVector)
 
 
 /**
- * @brief Predicts to which class the input vector belongs. Basically, runs over the probabilities for each class
+ * @brief Predicts to which class the input vector belongs.
+ *
+ * Basically, runs over the probabilities for each class
  * and returns the highest one.
- * @return the predicted class to which the input vector belongs.
+ *
+ * @param[in] float* inputVector The pointer to the vector to predict the class. The input vector
+ * must me a set of values with the (COLUMNS - 1) columns. It is a set of attributes for the algorithm to predict
+ * based on the knowledge it has calculated.
+ * @return The predicted class to which the input vector belongs.
  * */
 int predict(float *inputVector) {
 
@@ -89,14 +92,14 @@ int predict(float *inputVector) {
             bestLabel = i;  
         }
     }
-  
         
     return bestLabel;
 
 }
 
+
 /**
- * @brief Fills in the values in the confusion matrix
+ * @brief Fills in the values in the confusion matrix.
  * @note The size of the Confusion Matrix is determined by the number of possible classes.
  * A confusion matrix for a 2 class model is:
  *                      Predicted Class 0           Predicted Class 1
@@ -127,8 +130,8 @@ void calculateMetrics()
 
 
 /**
- * @brief Makes predicions based on the test set and then calculate the percentage of hits
- * @return The percentage of right predictions on the test set.
+ * @brief Makes predicions based on the test set and then calculate the percentage of hits.
+ * @returns The percentage of right predictions on the test set.
  * */
 float getAccuracy() {
 
@@ -153,10 +156,11 @@ float getAccuracy() {
 
 }
 
+
 /**
  * @brief Analyzes the Confusion Matrix outputed by the model and calculates the recall.
  * @note The recall, or sensibility reveals the capability of the model to correclty predict a class in the cases
- * in which a data entry belongs to that class
+ * in which a data entry belongs to that class.
  * @return The true positives over the sum of true positves and false negatives
  * */
 float getRecall(int class)
@@ -174,7 +178,7 @@ float getRecall(int class)
 /**
  * @brief Analyzes the Confusion Matrix outputed by the model and calculates the precision.
  * @note The precision, or specificity reveals the capability of the model to correclty predict a class in the cases
- * in which a data entry doesn't belong to that class
+ * in which a data entry doesn't belong to that class.
  * @return The true negatives over the sum of true negatives and false positives
  * */
 float getPrecision(int class) {
@@ -184,15 +188,13 @@ float getPrecision(int class) {
     {
         sum+=confusionMatrix[i][class];
     }
-
     return (confusionMatrix[class][class]/(float)sum);
-
 }
 
 /**
-* @brief print out the metrics (Recall, Precision and Accuracy for the model)
-* @note Please note that the Recall and Precision are printed by class and the Accuracy is for the whole model
-**/
+ * @brief print out the metrics (Recall, Precision and Accuracy for the model).
+ * @note Please note that the Recall and Precision are printed by class and the Accuracy is for the whole model.
+ * */
 void printMetrics()
 {
     printf("\n------------------Metrics for the Model---------------------------\n");

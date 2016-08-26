@@ -1,6 +1,12 @@
-//
-// Created by Alan Jeferson on 24/08/16.
-//
+/**
+ * @file    prediction/csv.c
+ * @author  Alan Jeferson and Levi Moreira
+ * @version V1.0
+ * @date    23-August-2016
+ * @brief   This file contains functions used to handle
+ *          CSV files related to the prediction (loading test set and summaries).
+ * */
+
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -8,7 +14,12 @@
 #include "../defines.h"
 
 
-
+/**
+ * @brief Loads the test dataset from a CSV file.
+ *
+ * The test dataset is loaded from ../datasets/test/DATASET.csv and put into
+ * the testset matrix.
+ * */
 void loadTestsetFromCsv() {
 
     int c; /* Last read character */
@@ -50,8 +61,15 @@ void loadTestsetFromCsv() {
 
 }
 
+
 /**
  * @brief Writes the given summary array to a file.
+ *
+ * Write and matrix with the given lines and columns in a file pointed by the given pointer.
+ * @param[out] vector The matrix whose values will be written on the file.
+ * @param[out] file The pointer to file where the data will be written.
+ * @param[in] lines The number of lines in the matrix.
+ * @param[in] columns The number of columns in the matrix.
  * */
 void writeMatrixToFile(float *vector, FILE *file, int lines, int columns) {
 
@@ -72,6 +90,9 @@ void writeMatrixToFile(float *vector, FILE *file, int lines, int columns) {
 
 /**
  * @brief Loads a CSV file into the summaries (means and stdevs) arrays.
+ *
+ * The CSV file is loaded from ../datasets/summaries/DATASET.csv and put into
+ * the means and stdevs matrix.
  * */
 void loadSummariesFromCsv() {
 
