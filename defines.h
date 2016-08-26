@@ -26,7 +26,7 @@
  * */
 #define DATASET "mfeat"                         /**< Current dataset's name */
 #define LINES 2000                              /**< The number of lines in the current dataset. */
-#define COLUMNS 77                              /**< The number of attributes in the current dataset plus a class value. */
+#define COLUMNS 77                              /**< The number of attributes in the current dataset plus a class column. */
 #define CLASSES 10                              /**< The number of classes in the dataset. */
 
 /**

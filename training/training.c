@@ -82,7 +82,7 @@ float calculateStdev(int classNumber, int columnNumber, float mean) {
 /**
  * @brief Calculates the summaries of the data and saves them to the correct arrays.
  *
- * The second part fo the Naive Bayes algorithm is to summarize the dataset.
+ * This part of the Naive Bayes algorithm summarizes the dataset.
  * The summaries are the means and standard deviations of the data separated by class.
  * Two subarrays are used to hold the summaries, their sizes are NUMBER_OF_CLASSES * NUMBER_OF_FEATURES.
  * Therefore the first line of the arrays contain the summaries for the first class and so on and so forth

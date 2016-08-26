@@ -10,10 +10,8 @@
 #ifndef UNTITLED_CSV_H
 #define UNTITLED_CSV_H
 
-void loadFullDatasetFromCsv();
 void loadSummariesFromCsv();
 void loadTestsetFromCsv();
-void writeTestsetToCsv();
-void writeSummariesToCsv();
+void writeMatrixToFile(float *vector, FILE *file, int lines, int columns);
 
 #endif //UNTITLED_CSV_H

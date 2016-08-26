@@ -11,5 +11,6 @@
 #define UNTITLED_TRAINING_H
 
 void  calculateSummaries();
-
+float calculateStdev(int classNumber, int columnNumber, float mean);
+float calculateMean(int classNumber, int columnNumber);
 #endif //UNTITLED_TRAINING_H

@@ -23,7 +23,7 @@
   * This function executes the following steps:
   * 1. Loads a test dataset located at ../datasets/test/DATASET.csv;
   * 2. Loads the knowledge contained in the summaries CSV file, located at ../datasets/summaries/DATASET.csv;
-  * 3. Calculates the metrics, that is to say, calculates the recall and precison for each class in the dataset;
+  * 3. Calculates the metrics, that is to say, calculates the recall, precison and accuracy for each class in the dataset;
   * 4. Print the just calculated metrics;
   * 5. Predicts the class of a random set of attribute values in the test data set;
   **/

@@ -21,7 +21,7 @@
  * @param[in] float x The input value to be evaluated by the formula.
  * @param[in] float mean The mean value of the column and class to which x belongs to.
  * @param[in] float stdev The standard deviation of the column and class to which x belongs to.
- * @returns The likelihood (in probability domain) of x belonging to the distribution represented by mean and stdev.
+ * @returns The likelihood (in log probability domain) of x belonging to the distribution represented by mean and stdev.
  * */
 float calculateProbability(float x, float mean, float stdev)
 {
@@ -48,7 +48,7 @@ float calculateClassProbability(int classNumber, float *inputVector)
 {
     int i;
     float classProbability = 0;
-    /*  for each feature, calculate the probability and multiply them together */
+    /*  for each feature, calculate the probability and add them together */
     for(i = 0; i<COLUMNS-1; i++)
     {
         /*  considering the Bayes criterion, the total probability is the product of each single probability */
@@ -177,7 +177,7 @@ float getRecall(int class)
 
 /**
  * @brief Analyzes the Confusion Matrix outputed by the model and calculates the precision.
- * @note The precision, or specificity reveals the capability of the model to correclty predict a class in the cases
+ * @note The precision reveals the capability of the model to correclty predict a class in the cases
  * in which a data entry doesn't belong to that class.
  * @return The true negatives over the sum of true negatives and false positives
  * */
@@ -207,5 +207,5 @@ void printMetrics()
         printf("\n");
     }
 
-    printf("\nModel Accuracy for the above split: %f%%\n", getAccuracy());
+    printf("\nModel Accuracy considering %d test entries: %f%%\n", getAccuracy(),TEST_LINES);
 }
