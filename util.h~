@@ -12,5 +12,6 @@
 /* Exported functions --------------------------------------------------------*/
 
 void printConfusionMatrix();
+void printTestSetLine(int line);
 
 #endif /* __UTIL_H */

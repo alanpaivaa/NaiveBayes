@@ -71,7 +71,7 @@ void loadTestsetFromCsv() {
     
     accuracy /= total;
     accuracy*=100;
-    //printf(" %d\n",total);
+    printf(" %d\n",total);
     //printf(" %d\n",accuracy);
     // Close the file
     fclose(file);

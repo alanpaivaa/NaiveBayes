@@ -20,7 +20,7 @@
 void printConfusionMatrix()
 {
     printf("------------------Confusion Matrix for the Model------------------\n");
-    char i, j;
+    int i, j;
 
     printf("          ");
     for(i = 0; i<CLASSES; i++)

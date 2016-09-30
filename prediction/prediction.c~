@@ -38,7 +38,7 @@ float calculateProbability(float x, float mean, float stdev)
  * @param[in] int classNumber The class to be considered
  * @returns the cumulative probability of that class
  * */
-float calculateClassProbability(char classNumber, float *inputVector)
+float calculateClassProbability(int classNumber, float *inputVector)
 {
     char i;
     float classProbability = 0;
