@@ -32,22 +32,26 @@ int main(int argc, char *argv[]) {
     srand(time(NULL));
 
     printf("\nRunning Naive Bayes in Dataset: %s\n\n", DATASET);
-
+ clock_t begin = clock();
     /* Calculates Recall and Precision for classes */
     calculateMetrics();
-    
+   
+
     /* Loading the summaries */
     loadSummariesFromCsv();
     
     /* Loading the test set */
     loadTestsetFromCsv();
 
+
     /* Print confusion matrix for the model */
     printConfusionMatrix();
 
     /* Show the metrics for the model */
     printMetrics();
-
+    clock_t end = clock();
+    double time_spent = (double)(end - begin);
     
+    printf("Loading time: %f",time_spent);
     return 0;
 }
